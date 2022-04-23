@@ -54,8 +54,14 @@ protected:
   std::set<evaluate_exprt> evaluate_exprs;
   void evaluate(decision_proceduret &);
 
-  std::set<binary_exprt> is_cstring_exprs;
+  std::set<state_is_cstring_exprt> is_cstring_exprs;
   void is_cstring(decision_proceduret &);
+
+  std::set<state_live_object_exprt> live_object_exprs;
+  void live_object(decision_proceduret &);
+
+  std::set<state_object_size_exprt> object_size_exprs;
+  void object_size(decision_proceduret &);
 };
 
 static inline axiomst &operator<<(axiomst &axioms, exprt src)

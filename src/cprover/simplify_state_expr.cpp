@@ -175,9 +175,9 @@ exprt simplify_live_object_expr(binary_exprt src, const namespacet &ns)
   return std::move(src);
 }
 
-exprt simplify_object_size_expr(binary_exprt src, const namespacet &ns)
+exprt simplify_object_size_expr(state_object_size_exprt src, const namespacet &ns)
 {
-  const auto &pointer = src.op1();
+  const auto &pointer = src.address();
 
   auto object = simplify_object_expression(pointer);
 
@@ -194,9 +194,9 @@ exprt simplify_object_size_expr(binary_exprt src, const namespacet &ns)
 
   // A store does not affect the result.
   // object_size(ς[A:=V]), p) --> object_size(ς, p)
-  if(src.op0().id() == ID_update_state)
+  if(src.state().id() == ID_update_state)
   {
-    src.op0() = to_update_state_expr(src.op0()).state();
+    src.state() = to_update_state_expr(src.state()).state();
     return std::move(src);
   }
 
@@ -262,13 +262,13 @@ static bool is_one(const exprt &src)
 #endif
 
 exprt simplify_is_cstring_expr(
-  binary_exprt src,
+  state_is_cstring_exprt src,
   const std::unordered_set<symbol_exprt, irep_hash> &address_taken,
   const namespacet &ns)
 {
   PRECONDITION(src.type().id() == ID_bool);
-  const auto &state = src.op0();
-  const auto &pointer = src.op1();
+  const auto &state = src.state();
+  const auto &pointer = src.address();
 
   if(state.id() == ID_update_state)
   {
@@ -370,7 +370,8 @@ exprt simplify_state_expr_node(
   }
   else if(src.id() == ID_state_is_cstring)
   {
-    return simplify_is_cstring_expr(to_binary_expr(src), address_taken, ns);
+    return simplify_is_cstring_expr(
+      to_state_is_cstring_expr(src), address_taken, ns);
   }
   else if(src.id() == ID_plus)
   {
@@ -402,7 +403,7 @@ exprt simplify_state_expr_node(
   }
   else if(src.id() == ID_state_object_size)
   {
-    return simplify_object_size_expr(to_binary_expr(src), ns);
+    return simplify_object_size_expr(to_state_object_size_expr(src), ns);
   }
   else if(src.id() == ID_equal)
   {

@@ -82,11 +82,11 @@ void axiomst::is_cstring(decision_proceduret &dest)
   {
     for(auto b_it = std::next(a_it); b_it != is_cstring_exprs.end(); b_it++)
     {
-      if(a_it->op0() != b_it->op0())
+      if(a_it->state() != b_it->state())
         continue;
-      auto a_op = a_it->op1();
-      auto b_op =
-        typecast_exprt::conditional_cast(b_it->op1(), a_it->op1().type());
+      auto a_op = a_it->address();
+      auto b_op = typecast_exprt::conditional_cast(
+        b_it->address(), a_it->address().type());
       auto operands_equal = equal_exprt(a_op, b_op);
       auto implication =
         implies_exprt(operands_equal, equal_exprt(*a_it, *b_it));
@@ -134,15 +134,15 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
 {
   if(src.id() == ID_state_is_cstring)
   {
-    auto &is_cstring_expr = to_binary_expr(src);
+    auto &is_cstring_expr = to_state_is_cstring_expr(src);
     is_cstring_exprs.insert(is_cstring_expr);
 
     {
       // is_cstring(ς, p) ⇒ r_ok(ς, p, 1)
       auto ok_expr = ternary_exprt(
         ID_state_r_ok,
-        is_cstring_expr.op0(),
-        is_cstring_expr.op1(),
+        is_cstring_expr.state(),
+        is_cstring_expr.address(),
         from_integer(1, size_type()),
         bool_typet());
       auto ok_simplified = simplify_state_expr(ok_expr, address_taken, ns);
@@ -155,12 +155,11 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
 
     {
       // is_cstring(ς, p) --> is_cstring(ς, p + 1) ∨ ς(p)=0
-      auto state = is_cstring_expr.op0();
-      auto p = is_cstring_expr.op1();
+      auto state = is_cstring_expr.state();
+      auto p = is_cstring_expr.address();
       auto one = from_integer(1, signed_size_type());
       auto p_plus_one = plus_exprt(p, one, is_cstring_expr.op1().type());
-      auto is_cstring_plus_one =
-        binary_exprt(state, ID_state_is_cstring, p_plus_one, bool_typet());
+      auto is_cstring_plus_one = state_is_cstring_exprt(state, p_plus_one);
       auto char_type = to_pointer_type(p.type()).base_type();
       auto zero = from_integer(0, char_type);
       auto star_p = evaluate_exprt(state, p, char_type);
@@ -180,12 +179,21 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
   }
   else if(src.id() == ID_state_live_object)
   {
-    const auto &live_object_expr = to_binary_expr(src);
-    // live_object(ς, p) --> p!=0
-    auto instance = replace(
-      implies_exprt(src, not_exprt(null_pointer(live_object_expr.op1()))));
-    std::cout << "AXIOMc: " << format(instance) << "\n";
-    dest << instance;
+    const auto &live_object_expr = to_state_live_object_expr(src);
+    live_object_exprs.insert(live_object_expr);
+
+    {
+      // live_object(ς, p) --> p!=0
+      auto instance = replace(
+        implies_exprt(src, not_exprt(null_pointer(live_object_expr.address()))));
+      std::cout << "AXIOMc: " << format(instance) << "\n";
+      dest << instance;
+    }
+  }
+  else if(src.id() == ID_state_object_size)
+  {
+    const auto &object_size_expr = to_state_object_size_expr(src);
+    object_size_exprs.insert(object_size_expr);
   }
   else if(
     src.id() == ID_state_r_ok || src.id() == ID_state_w_ok ||
