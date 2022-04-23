@@ -16,6 +16,7 @@ Author:
 
 #include <solvers/decision_procedure.h>
 
+#include <set>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -39,10 +40,15 @@ protected:
   const namespacet &ns;
 
   std::vector<exprt> constraints;
+
   exprt replace(exprt);
   typet replace(typet);
-  void node(const exprt &, decision_proceduret &);
   std::unordered_map<exprt, symbol_exprt, irep_hash> replacement_map;
+  std::size_t evaluate_counter = 0;
+  std::size_t is_cstring_counter = 0;
+
+  void node(const exprt &, decision_proceduret &);
+  void evaluate(decision_proceduret &);
 };
 
 static inline axiomst &operator<<(axiomst &axioms, exprt src)

@@ -49,38 +49,59 @@ typet axiomst::replace(typet src)
     return src;
 }
 
+void axiomst::evaluate(decision_proceduret &dest)
+{
+  std::set<evaluate_exprt> instances;
+
+  for(auto &constraint : constraints)
+    constraint.visit_pre([&instances](const exprt &node) {
+      if(node.id() == ID_evaluate)
+        instances.insert(to_evaluate_expr(node));
+    });
+
+  // quadratic
+  for(auto a_it = instances.begin(); a_it != instances.end(); a_it++)
+  {
+    for(auto b_it = std::next(a_it); b_it != instances.end(); b_it++)
+    {
+      exprt::operandst operands_equal;
+      DATA_INVARIANT(
+        a_it->operands().size() == b_it->operands().size(),
+        "number of operands");
+      for(std::size_t i = 0; i < a_it->operands().size(); i++)
+      {
+        auto a_op = a_it->operands()[i];
+        auto b_op = typecast_exprt::conditional_cast(
+          b_it->operands()[i], a_it->operands()[i].type());
+        if(a_op != b_op)
+          operands_equal.push_back(equal_exprt(a_op, b_op));
+      }
+      auto implication = implies_exprt(
+        conjunction(operands_equal),
+        equal_exprt(
+          *a_it, typecast_exprt::conditional_cast(*b_it, a_it->type())));
+      std::cout << "EVALUATE: " << format(implication) << '\n';
+      dest << replace(implication);
+    }
+  }
+}
+
 exprt axiomst::replace(exprt src)
 {
   src.type() = replace(src.type());
 
   if(src.id() == ID_evaluate)
   {
-    auto &evaluate_expr = to_evaluate_expr(src);
-    auto &address = evaluate_expr.address();
-    if(address.id() == ID_object_address)
+    auto r = replacement_map.find(src);
+    if(r == replacement_map.end())
     {
-      const auto &object_address = to_object_address_expr(address);
-      auto id = object_address.object_identifier();
-      return symbol_exprt(
-        "evaluate-" + id2string(id), object_address.object_type());
+      auto s = symbol_exprt(
+        "evaluate" + std::to_string(++evaluate_counter), src.type());
+      replacement_map.emplace(src, s);
+      return s;
     }
-    else if(address.id() == ID_element_address)
-    {
-      auto &element_address_expr = to_element_address_expr(address);
-      if(element_address_expr.base().id() == ID_object_address)
-      {
-        const auto &object_address =
-          to_object_address_expr(element_address_expr.base());
-        auto id = object_address.object_identifier();
-        auto index = replace(element_address_expr.index());
-        auto object_type =
-          array_typet(object_address.object_type(), nil_exprt());
-        return index_exprt(
-          symbol_exprt("evaluate-" + id2string(id), object_type),
-          index,
-          element_address_expr.element_type());
-      }
-    }
+    else
+      return r->second;
   }
 
   for(auto &op : src.operands())
@@ -138,4 +159,6 @@ void axiomst::emit(decision_proceduret &dest)
     std::cout << "CONSTRAINT: " << format(constraint_replaced) << "\n";
     dest << constraint_replaced;
   }
+
+  evaluate(dest);
 }

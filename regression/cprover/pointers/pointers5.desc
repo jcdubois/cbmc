@@ -1,9 +1,9 @@
-KNOWNBUG
+CORE
 pointers5.c
 --text --solve
 ^EXIT=0$
 ^SIGNAL=0$
-^\(\d+\) ∀ ς18 : state \. S17\(ς18\) ⇒ S18\(ς18\[❝x❞:=0\]\)$
-^\(\d+\) ∀ ς23 : state \. S22\(ς23\) ⇒ \(\(S22\(❝main::1::p❞\) = S22\(❝main::1::q❞\)\) ⇒ S23\(ς23\)\)$
-^\(\d+\) ∀ ς24 : state \. S23\(ς24\) ⇒ \(ς24\(S23\(❝main::1::p❞\)\) = ς24\(S23\(❝main::1::q❞\)\)\)$
+^\(\d+\) ∀ ς : state \. \(S22\(ς\) ∧ ς\(❝main::1::p❞\) = ς\(❝main::1::q❞\)\) ⇒ S23\(ς\)$
+^\(\d+\) ∀ ς : state \. S23\(ς\) ⇒ \(ς\(ς\(❝main::1::p❞\)\) = ς\(ς\(❝main::1::q❞\)\)\)$
+^\[main\.assertion\.1\] line \d+ property 1: SUCCESS$
 --
