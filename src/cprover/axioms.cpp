@@ -14,6 +14,7 @@ Author:
 #include <util/arith_tools.h>
 #include <util/c_types.h>
 #include <util/format_expr.h>
+#include <util/pointer_predicates.h>
 
 #include "simplify_state_expr.h"
 #include "state.h"
@@ -142,8 +143,10 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
         is_cstring_expr.op1(),
         from_integer(1, size_type()),
         bool_typet());
-      auto instance = replace(
-        implies_exprt(src, simplify_state_expr(ok_expr, address_taken, ns)));
+      auto ok_simplified = simplify_state_expr(ok_expr, address_taken, ns);
+      ok_simplified.visit_pre(
+        [&dest, this](const exprt &src) { node(src, dest); });
+      auto instance = replace(implies_exprt(src, ok_simplified));
       std::cout << "AXIOMa: " << format(instance) << "\n";
       dest << instance;
     }
@@ -172,6 +175,15 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
   {
     const auto &evaluate_expr = to_evaluate_expr(src);
     evaluate_exprs.insert(evaluate_expr);
+  }
+  else if(src.id() == ID_state_live_object)
+  {
+    const auto &live_object_expr = to_binary_expr(src);
+    // live_object(ς, p) --> p!=0
+    auto instance = replace(
+      implies_exprt(src, not_exprt(null_pointer(live_object_expr.op1()))));
+    std::cout << "AXIOMc: " << format(instance) << "\n";
+    dest << instance;
   }
 }
 

@@ -1,7 +1,7 @@
-KNOWNBUG
+CORE
 cstring_is_not_null.c
 
 ^EXIT=0$
 ^SIGNAL=0$
-^program is safe / function main is safe / line .* property: SUCCESS$
+^\[main\.assertion\.1] line \d+ property: SUCCESS$
 --
