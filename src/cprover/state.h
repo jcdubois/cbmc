@@ -305,4 +305,59 @@ inline state_is_cstring_exprt &to_state_is_cstring_expr(exprt &expr)
   return ret;
 }
 
+class state_object_size_exprt : public binary_exprt
+{
+public:
+  state_object_size_exprt(exprt state, exprt address, typet type)
+    : binary_exprt(
+        std::move(state),
+        ID_state_object_size,
+        std::move(address),
+        std::move(type))
+  {
+    PRECONDITION(this->state().type().id() == ID_state);
+    PRECONDITION(this->address().type().id() == ID_pointer);
+  }
+
+  const exprt &state() const
+  {
+    return op0();
+  }
+
+  exprt &state()
+  {
+    return op0();
+  }
+
+  const exprt &address() const
+  {
+    return op1();
+  }
+};
+
+/// \brief Cast an exprt to a \ref state_object_size_exprt
+///
+/// \a expr must be known to be \ref state_object_size_exprt.
+///
+/// \param expr: Source expression
+/// \return Object of type \ref state_object_size_exprt
+inline const state_object_size_exprt &
+to_state_object_size_expr(const exprt &expr)
+{
+  PRECONDITION(expr.id() == ID_state_object_size);
+  const state_object_size_exprt &ret =
+    static_cast<const state_object_size_exprt &>(expr);
+  validate_expr(ret);
+  return ret;
+}
+
+/// \copydoc to_state_object_size_expr(const exprt &)
+inline state_object_size_exprt &to_state_object_size_expr(exprt &expr)
+{
+  PRECONDITION(expr.id() == ID_state_object_size);
+  state_object_size_exprt &ret = static_cast<state_object_size_exprt &>(expr);
+  validate_expr(ret);
+  return ret;
+}
+
 #endif // CPROVER_CPROVER_STATE_H
