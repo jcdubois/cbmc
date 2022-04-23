@@ -1,9 +1,12 @@
-KNOWNBUG
+CORE
 r_ok2.c
-
-^EXIT=0$
+--no-inline --safety
+^EXIT=10$
 ^SIGNAL=0$
-^program is safe / function int_assignment is safe: SUCCESS$
-^program is safe / function int_pointer_assignment is safe: SUCCESS$
-^program is safe / function pointer_assignment is safe: REFUTED$
+^\[int_assignment\.pointer\.1\] line \d+ pointer safe: SUCCESS$
+^\[int_assignment\.pointer\.2\] line \d+ pointer safe: SUCCESS$
+^\[int_pointer_assignment\.pointer\.1\] line \d+ pointer safe: SUCCESS$
+^\[int_pointer_assignment\.pointer\.2\] line \d+ pointer safe: SUCCESS$
+^\[pointer_assignment\.pointer\.1\] line \d+ pointer safe: SUCCESS$
+^\[pointer_assignment\.pointer\.2\] line \d+ pointer safe: REFUTED$
 --

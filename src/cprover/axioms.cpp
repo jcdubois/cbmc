@@ -102,7 +102,9 @@ exprt axiomst::replace(exprt src)
 
   if(
     src.id() == ID_evaluate || src.id() == ID_state_is_cstring ||
-    src.id() == ID_state_object_size || src.id() == ID_state_live_object)
+    src.id() == ID_state_object_size || src.id() == ID_state_live_object ||
+    src.id() == ID_state_r_ok || src.id() == ID_state_w_ok ||
+    src.id() == ID_state_rw_ok)
   {
     auto r = replacement_map.find(src);
     if(r == replacement_map.end())
@@ -183,6 +185,36 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
     auto instance = replace(
       implies_exprt(src, not_exprt(null_pointer(live_object_expr.op1()))));
     std::cout << "AXIOMc: " << format(instance) << "\n";
+    dest << instance;
+  }
+  else if(
+    src.id() == ID_state_r_ok || src.id() == ID_state_w_ok ||
+    src.id() == ID_state_rw_ok)
+  {
+    const auto &ok_expr = to_ternary_expr(src);
+    const auto &state = ok_expr.op0();
+    const auto &pointer = ok_expr.op1();
+    const auto &size = ok_expr.op2();
+
+    // X_ok(p, s)
+    //  --> live_object(p) ∧ offset(p)≥0 ∧ offset(p)+s≤object_size(p)
+    auto live_object =
+      binary_predicate_exprt(state, ID_state_live_object, pointer);
+    auto ssize_type = signed_size_type();
+    auto offset = pointer_offset_exprt(pointer, ssize_type);
+    auto offset_simplified =
+      simplify_state_expr_node(offset, address_taken, ns);
+    auto lower = binary_relation_exprt(
+      offset_simplified, ID_ge, from_integer(0, ssize_type));
+    auto object_size =
+      binary_exprt(state, ID_state_object_size, pointer, ssize_type);
+    auto size_casted = typecast_exprt::conditional_cast(size, ssize_type);
+    auto upper = binary_relation_exprt(
+      plus_exprt(offset_simplified, size_casted), ID_le, object_size);
+
+    auto instance =
+      replace(implies_exprt(src, and_exprt(live_object, lower, upper)));
+    std::cout << "AXIOMd: " << format(instance) << "\n";
     dest << instance;
   }
 }
