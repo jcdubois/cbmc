@@ -25,6 +25,7 @@ Author:
 
 void show_assignment(const bv_pointerst &solver)
 {
+#if 0
   for(auto &entry : solver.get_cache())
   {
     const auto &expr = entry.first;
@@ -32,6 +33,14 @@ void show_assignment(const bv_pointerst &solver)
       continue;
     auto value = solver.l_get(entry.second);
     std::cout << "|| " << format(expr) << " --> " << value << "\n";
+  }
+#endif
+
+  for(auto &entry : solver.get_symbols())
+  {
+    const auto &identifier = entry.first;
+    auto value = solver.l_get(entry.second);
+    std::cout << "|| " << identifier << " --> " << value << "\n";
   }
 }
 

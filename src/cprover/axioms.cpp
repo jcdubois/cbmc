@@ -51,36 +51,45 @@ typet axiomst::replace(typet src)
 
 void axiomst::evaluate(decision_proceduret &dest)
 {
-  std::set<evaluate_exprt> instances;
-
-  for(auto &constraint : constraints)
-    constraint.visit_pre([&instances](const exprt &node) {
-      if(node.id() == ID_evaluate)
-        instances.insert(to_evaluate_expr(node));
-    });
-
   // quadratic
-  for(auto a_it = instances.begin(); a_it != instances.end(); a_it++)
+  for(auto a_it = evaluate_exprs.begin(); a_it != evaluate_exprs.end(); a_it++)
   {
-    for(auto b_it = std::next(a_it); b_it != instances.end(); b_it++)
+    for(auto b_it = std::next(a_it); b_it != evaluate_exprs.end(); b_it++)
     {
-      exprt::operandst operands_equal;
-      DATA_INVARIANT(
-        a_it->operands().size() == b_it->operands().size(),
-        "number of operands");
-      for(std::size_t i = 0; i < a_it->operands().size(); i++)
-      {
-        auto a_op = a_it->operands()[i];
-        auto b_op = typecast_exprt::conditional_cast(
-          b_it->operands()[i], a_it->operands()[i].type());
-        if(a_op != b_op)
-          operands_equal.push_back(equal_exprt(a_op, b_op));
-      }
+      if(a_it->state() != b_it->state())
+        continue;
+
+      auto a_op = a_it->address();
+      auto b_op = typecast_exprt::conditional_cast(
+        b_it->address(), a_it->address().type());
+      auto operands_equal = equal_exprt(a_op, b_op);
       auto implication = implies_exprt(
-        conjunction(operands_equal),
+        operands_equal,
         equal_exprt(
           *a_it, typecast_exprt::conditional_cast(*b_it, a_it->type())));
       std::cout << "EVALUATE: " << format(implication) << '\n';
+      dest << replace(implication);
+    }
+  }
+}
+
+void axiomst::is_cstring(decision_proceduret &dest)
+{
+  // quadratic
+  for(auto a_it = is_cstring_exprs.begin(); a_it != is_cstring_exprs.end();
+      a_it++)
+  {
+    for(auto b_it = std::next(a_it); b_it != is_cstring_exprs.end(); b_it++)
+    {
+      if(a_it->op0() != b_it->op0())
+        continue;
+      auto a_op = a_it->op1();
+      auto b_op =
+        typecast_exprt::conditional_cast(b_it->op1(), a_it->op1().type());
+      auto operands_equal = equal_exprt(a_op, b_op);
+      auto implication =
+        implies_exprt(operands_equal, equal_exprt(*a_it, *b_it));
+      std::cout << "IS_CSTRING: " << format(implication) << '\n';
       dest << replace(implication);
     }
   }
@@ -90,14 +99,22 @@ exprt axiomst::replace(exprt src)
 {
   src.type() = replace(src.type());
 
-  if(src.id() == ID_evaluate)
+  if(
+    src.id() == ID_evaluate || src.id() == ID_state_is_cstring ||
+    src.id() == ID_state_object_size || src.id() == ID_state_live_object)
   {
     auto r = replacement_map.find(src);
     if(r == replacement_map.end())
     {
-      auto s = symbol_exprt(
-        "evaluate" + std::to_string(++evaluate_counter), src.type());
+      auto counter = ++counters[src.id()];
+      auto s =
+        symbol_exprt(src.id_string() + std::to_string(counter), src.type());
       replacement_map.emplace(src, s);
+
+      if(src.id() == ID_state_is_cstring)
+      {
+        std::cout << "R " << format(s) << " --> " << format(src) << '\n';
+      }
       return s;
     }
     else
@@ -115,6 +132,7 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
   if(src.id() == ID_state_is_cstring)
   {
     auto &is_cstring_expr = to_binary_expr(src);
+    is_cstring_exprs.insert(is_cstring_expr);
 
     {
       // is_cstring(ς, p) ⇒ r_ok(ς, p, 1)
@@ -140,12 +158,20 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
         binary_exprt(state, ID_state_is_cstring, p_plus_one, bool_typet());
       auto char_type = to_pointer_type(p.type()).base_type();
       auto zero = from_integer(0, char_type);
-      auto is_zero = equal_exprt(evaluate_exprt(state, p, char_type), zero);
+      auto star_p = evaluate_exprt(state, p, char_type);
+      auto is_zero = equal_exprt(star_p, zero);
       auto instance =
         replace(implies_exprt(src, or_exprt(is_cstring_plus_one, is_zero)));
       std::cout << "AXIOMb: " << format(instance) << "\n";
       dest << instance;
+      evaluate_exprs.insert(star_p);
+      is_cstring_exprs.insert(is_cstring_plus_one);
     }
+  }
+  else if(src.id() == ID_evaluate)
+  {
+    const auto &evaluate_expr = to_evaluate_expr(src);
+    evaluate_exprs.insert(evaluate_expr);
   }
 }
 
@@ -161,4 +187,5 @@ void axiomst::emit(decision_proceduret &dest)
   }
 
   evaluate(dest);
+  is_cstring(dest);
 }

@@ -1,5 +1,5 @@
 CORE
-cstring_plus_one3.c
+cstring_is_function1.c
 
 ^EXIT=0$
 ^SIGNAL=0$

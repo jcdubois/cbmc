@@ -16,6 +16,9 @@ Author:
 
 #include <solvers/decision_procedure.h>
 
+#include "state.h"
+
+#include <map>
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
@@ -44,11 +47,15 @@ protected:
   exprt replace(exprt);
   typet replace(typet);
   std::unordered_map<exprt, symbol_exprt, irep_hash> replacement_map;
-  std::size_t evaluate_counter = 0;
-  std::size_t is_cstring_counter = 0;
+  std::map<irep_idt, std::size_t> counters;
 
   void node(const exprt &, decision_proceduret &);
+
+  std::set<evaluate_exprt> evaluate_exprs;
   void evaluate(decision_proceduret &);
+
+  std::set<binary_exprt> is_cstring_exprs;
+  void is_cstring(decision_proceduret &);
 };
 
 static inline axiomst &operator<<(axiomst &axioms, exprt src)
