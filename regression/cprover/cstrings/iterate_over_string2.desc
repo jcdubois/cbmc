@@ -1,7 +1,7 @@
-KNOWNBUG
+CORE
 iterate_over_string2.c
 
 ^EXIT=0$
 ^SIGNAL=0$
-^program is safe / function main is safe / dereference line .*: SUCCESS$
+^\[main\.invariant\.1\] line \d+ loop invariant: SUCCESS$
 --
