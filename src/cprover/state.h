@@ -11,6 +11,13 @@ Author: Daniel Kroening, dkr@amazon.com
 
 #include <util/mathematical_expr.h>
 
+extern const irep_idt ID_state_is_cstring;
+extern const irep_idt ID_state_live_object;
+extern const irep_idt ID_state_object_size;
+extern const irep_idt ID_state_r_ok;
+extern const irep_idt ID_state_w_ok;
+extern const irep_idt ID_state_rw_ok;
+
 class state_typet : public typet
 {
 public:
@@ -191,11 +198,58 @@ inline const allocate_exprt &to_allocate_expr(const exprt &expr)
   return ret;
 }
 
-extern const irep_idt ID_state_is_cstring;
-extern const irep_idt ID_state_live_object;
-extern const irep_idt ID_state_object_size;
-extern const irep_idt ID_state_r_ok;
-extern const irep_idt ID_state_w_ok;
-extern const irep_idt ID_state_rw_ok;
+class state_live_object_exprt : public binary_predicate_exprt
+{
+public:
+  state_live_object_exprt(exprt state, exprt address)
+    : binary_predicate_exprt(
+        std::move(state),
+        ID_state_live_object,
+        std::move(address))
+  {
+    PRECONDITION(this->state().type().id() == ID_state);
+    PRECONDITION(this->address().type().id() == ID_pointer);
+  }
+
+  const exprt &state() const
+  {
+    return op0();
+  }
+
+  exprt &state()
+  {
+    return op0();
+  }
+
+  const exprt &address() const
+  {
+    return op1();
+  }
+};
+
+/// \brief Cast an exprt to a \ref state_live_object_exprt
+///
+/// \a expr must be known to be \ref state_live_object_exprt.
+///
+/// \param expr: Source expression
+/// \return Object of type \ref state_live_object_exprt
+inline const state_live_object_exprt &
+to_state_live_object_expr(const exprt &expr)
+{
+  PRECONDITION(expr.id() == ID_state_live_object);
+  const state_live_object_exprt &ret =
+    static_cast<const state_live_object_exprt &>(expr);
+  validate_expr(ret);
+  return ret;
+}
+
+/// \copydoc to_state_live_object_expr(const exprt &)
+inline state_live_object_exprt &to_state_live_object_expr(exprt &expr)
+{
+  PRECONDITION(expr.id() == ID_state_live_object);
+  state_live_object_exprt &ret = static_cast<state_live_object_exprt &>(expr);
+  validate_expr(ret);
+  return ret;
+}
 
 #endif // CPROVER_CPROVER_STATE_H
