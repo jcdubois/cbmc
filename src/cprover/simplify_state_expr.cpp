@@ -208,6 +208,7 @@ exprt simplify_ok_expr(
   const std::unordered_set<symbol_exprt, irep_hash> &address_taken,
   const namespacet &ns)
 {
+#if 0
   const auto &state = src.op0();
   const auto &pointer = src.op1();
   const auto &size = src.op2();
@@ -232,6 +233,9 @@ exprt simplify_ok_expr(
     plus_exprt(offset_simplified, size_casted), ID_le, object_size_simplified);
 
   return and_exprt(live_object_simplified, lower, upper);
+#else
+  return src;
+#endif
 
 #if 0
   // A store does not affect the result.

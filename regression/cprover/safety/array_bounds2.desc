@@ -1,4 +1,4 @@
-CORE
+KNOWNBUG
 array_bounds2.c
 --safety
 ^EXIT=10$

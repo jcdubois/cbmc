@@ -1,4 +1,4 @@
-CORE
+KNOWNBUG
 r_ok2.c
 --no-inline --safety
 ^EXIT=10$

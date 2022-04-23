@@ -145,12 +145,17 @@ void axiomst::node(const exprt &src, decision_proceduret &dest)
         is_cstring_expr.address(),
         from_integer(1, size_type()),
         bool_typet());
+
+      auto instance1 = replace(implies_exprt(src, ok_expr));
+      std::cout << "AXIOMa1: " << format(instance1) << "\n";
+      dest << instance1;
+
       auto ok_simplified = simplify_state_expr(ok_expr, address_taken, ns);
       ok_simplified.visit_pre(
         [&dest, this](const exprt &src) { node(src, dest); });
-      auto instance = replace(implies_exprt(src, ok_simplified));
-      std::cout << "AXIOMa: " << format(instance) << "\n";
-      dest << instance;
+      auto instance2 = replace(implies_exprt(src, ok_simplified));
+      std::cout << "AXIOMa2: " << format(instance2) << "\n";
+      dest << instance2;
     }
 
     {

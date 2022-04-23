@@ -1,4 +1,4 @@
-CORE
+KNOWNBUG
 simple_equality1.c
 --safety
 ^EXIT=10$
