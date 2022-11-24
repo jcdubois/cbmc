@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('goto__check__c_8h.html',''); initResiz
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="goto__check__c_8h__incl.svg" width="1591" height="1052"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="goto__check__c_8h__incl.svg" width="1208" height="903"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -152,6 +152,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">  <span class="stringliteral">&quot; --bounds-check               enable array bounds checks\n&quot;</span> \</div>
 <div class="line">  <span class="stringliteral">&quot; --pointer-check              enable pointer checks\n&quot;</span> <span class="comment">/* NOLINT(whitespace/line_length) */</span> \</div>
 <div class="line">  <span class="stringliteral">&quot; --memory-leak-check          enable memory leak checks\n&quot;</span> \</div>
+<div class="line">  <span class="stringliteral">&quot; --memory-cleanup-check       enable memory cleanup checks\n&quot;</span> \</div>
 <div class="line">  <span class="stringliteral">&quot; --div-by-zero-check          enable division by zero checks\n&quot;</span> \</div>
 <div class="line">  <span class="stringliteral">&quot; --signed-overflow-check      enable signed arithmetic over- and underflow checks\n&quot;</span> <span class="comment">/* NOLINT(whitespace/line_length) */</span> \</div>
 <div class="line">  <span class="stringliteral">&quot; --unsigned-overflow-check    enable arithmetic over- and underflow checks\n&quot;</span> <span class="comment">/* NOLINT(whitespace/line_length) */</span>  \</div>
@@ -184,7 +185,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="stringliteral">&quot;(bounds-check)(pointer-check)(memory-leak-check)&quot;</span>                           \</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="stringliteral">&quot;(bounds-check)(pointer-check)(memory-leak-check)(memory-cleanup-check)&quot;</span>     \</div>
 <div class="line">  <span class="stringliteral">&quot;(div-by-zero-check)(enum-range-check)&quot;</span>                                      \</div>
 <div class="line">  <span class="stringliteral">&quot;(signed-overflow-check)(unsigned-overflow-check)&quot;</span>                           \</div>
 <div class="line">  <span class="stringliteral">&quot;(pointer-overflow-check)(conversion-check)(undefined-shift-check)&quot;</span>          \</div>
@@ -227,6 +228,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">  options.set_option(<span class="stringliteral">&quot;bounds-check&quot;</span>, cmdline.isset(<span class="stringliteral">&quot;bounds-check&quot;</span>)); \</div>
 <div class="line">  options.set_option(<span class="stringliteral">&quot;pointer-check&quot;</span>, cmdline.isset(<span class="stringliteral">&quot;pointer-check&quot;</span>)); \</div>
 <div class="line">  options.set_option(<span class="stringliteral">&quot;memory-leak-check&quot;</span>, cmdline.isset(<span class="stringliteral">&quot;memory-leak-check&quot;</span>)); \</div>
+<div class="line">  options.set_option(<span class="stringliteral">&quot;memory-cleanup-check&quot;</span>, cmdline.isset(<span class="stringliteral">&quot;memory-cleanup-check&quot;</span>)); <span class="comment">/* NOLINT(whitespace/line_length) */</span> \</div>
 <div class="line">  options.set_option(<span class="stringliteral">&quot;div-by-zero-check&quot;</span>, cmdline.isset(<span class="stringliteral">&quot;div-by-zero-check&quot;</span>)); \</div>
 <div class="line">  options.set_option(<span class="stringliteral">&quot;enum-range-check&quot;</span>, cmdline.isset(<span class="stringliteral">&quot;enum-range-check&quot;</span>)); \</div>
 <div class="line">  options.set_option(<span class="stringliteral">&quot;signed-overflow-check&quot;</span>, cmdline.isset(<span class="stringliteral">&quot;signed-overflow-check&quot;</span>)); <span class="comment">/* NOLINT(whitespace/line_length) */</span>  \</div>
@@ -248,7 +250,7 @@ Functions</h2></td></tr>
 <div class="line">    options.set_option(<span class="stringliteral">&quot;error-label&quot;</span>, cmdline.get_values(<span class="stringliteral">&quot;error-label&quot;</span>)); \</div>
 <div class="line">  (void)0</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="goto__check__c_8h_source.html#l00074">74</a> of file <a class="el" href="goto__check__c_8h_source.html">goto_check_c.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="goto__check__c_8h_source.html#l00075">75</a> of file <a class="el" href="goto__check__c_8h_source.html">goto_check_c.h</a>.</p>
 
 </div>
 </div>
@@ -297,7 +299,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="goto__check__c_8cpp_source.html#l02416">2416</a> of file <a class="el" href="goto__check__c_8cpp_source.html">goto_check_c.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="goto__check__c_8cpp_source.html#l02438">2438</a> of file <a class="el" href="goto__check__c_8cpp_source.html">goto_check_c.cpp</a>.</p>
 
 </div>
 </div>
@@ -339,7 +341,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="goto__check__c_8cpp_source.html#l02427">2427</a> of file <a class="el" href="goto__check__c_8cpp_source.html">goto_check_c.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="goto__check__c_8cpp_source.html#l02449">2449</a> of file <a class="el" href="goto__check__c_8cpp_source.html">goto_check_c.cpp</a>.</p>
 
 </div>
 </div>
@@ -375,7 +377,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="goto__check__c_8cpp_source.html#l02443">2443</a> of file <a class="el" href="goto__check__c_8cpp_source.html">goto_check_c.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="goto__check__c_8cpp_source.html#l02465">2465</a> of file <a class="el" href="goto__check__c_8cpp_source.html">goto_check_c.cpp</a>.</p>
 
 </div>
 </div>
