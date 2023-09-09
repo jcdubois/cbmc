@@ -2,6 +2,11 @@ var dir_c09e2f4c4cbc9b698baa471c135538ab =
 [
     [ "dfcc.cpp", "dfcc_8cpp.html", "dfcc_8cpp" ],
     [ "dfcc.h", "dfcc_8h.html", "dfcc_8h" ],
+    [ "dfcc_cfg_info.cpp", "dfcc__cfg__info_8cpp.html", "dfcc__cfg__info_8cpp" ],
+    [ "dfcc_cfg_info.h", "dfcc__cfg__info_8h.html", [
+      [ "dfcc_loop_infot", "classdfcc__loop__infot.html", "classdfcc__loop__infot" ],
+      [ "dfcc_cfg_infot", "classdfcc__cfg__infot.html", "classdfcc__cfg__infot" ]
+    ] ],
     [ "dfcc_check_loop_normal_form.cpp", "dfcc__check__loop__normal__form_8cpp.html", "dfcc__check__loop__normal__form_8cpp" ],
     [ "dfcc_check_loop_normal_form.h", "dfcc__check__loop__normal__form_8h.html", "dfcc__check__loop__normal__form_8h" ],
     [ "dfcc_contract_clauses_codegen.cpp", "dfcc__contract__clauses__codegen_8cpp.html", null ],
@@ -18,9 +23,15 @@ var dir_c09e2f4c4cbc9b698baa471c135538ab =
     ] ],
     [ "dfcc_contract_mode.cpp", "dfcc__contract__mode_8cpp.html", "dfcc__contract__mode_8cpp" ],
     [ "dfcc_contract_mode.h", "dfcc__contract__mode_8h.html", "dfcc__contract__mode_8h" ],
+    [ "dfcc_infer_loop_assigns.cpp", "dfcc__infer__loop__assigns_8cpp.html", "dfcc__infer__loop__assigns_8cpp" ],
+    [ "dfcc_infer_loop_assigns.h", "dfcc__infer__loop__assigns_8h.html", "dfcc__infer__loop__assigns_8h" ],
     [ "dfcc_instrument.cpp", "dfcc__instrument_8cpp.html", null ],
     [ "dfcc_instrument.h", "dfcc__instrument_8h.html", [
       [ "dfcc_instrumentt", "classdfcc__instrumentt.html", "classdfcc__instrumentt" ]
+    ] ],
+    [ "dfcc_instrument_loop.cpp", "dfcc__instrument__loop_8cpp.html", null ],
+    [ "dfcc_instrument_loop.h", "dfcc__instrument__loop_8h.html", [
+      [ "dfcc_instrument_loopt", "classdfcc__instrument__loopt.html", "classdfcc__instrument__loopt" ]
     ] ],
     [ "dfcc_is_cprover_symbol.cpp", "dfcc__is__cprover__symbol_8cpp.html", "dfcc__is__cprover__symbol_8cpp" ],
     [ "dfcc_is_cprover_symbol.h", "dfcc__is__cprover__symbol_8h.html", "dfcc__is__cprover__symbol_8h" ],
@@ -52,6 +63,8 @@ var dir_c09e2f4c4cbc9b698baa471c135538ab =
     [ "dfcc_pointer_in_range.h", "dfcc__pointer__in__range_8h.html", [
       [ "dfcc_pointer_in_ranget", "classdfcc__pointer__in__ranget.html", "classdfcc__pointer__in__ranget" ]
     ] ],
+    [ "dfcc_root_object.cpp", "dfcc__root__object_8cpp.html", "dfcc__root__object_8cpp" ],
+    [ "dfcc_root_object.h", "dfcc__root__object_8h.html", "dfcc__root__object_8h" ],
     [ "dfcc_spec_functions.cpp", "dfcc__spec__functions_8cpp.html", null ],
     [ "dfcc_spec_functions.h", "dfcc__spec__functions_8h.html", [
       [ "dfcc_spec_functionst", "classdfcc__spec__functionst.html", "classdfcc__spec__functionst" ]
@@ -60,9 +73,9 @@ var dir_c09e2f4c4cbc9b698baa471c135538ab =
     [ "dfcc_swap_and_wrap.h", "dfcc__swap__and__wrap_8h.html", [
       [ "dfcc_swap_and_wrapt", "classdfcc__swap__and__wrapt.html", "classdfcc__swap__and__wrapt" ]
     ] ],
-    [ "dfcc_utils.cpp", "dfcc__utils_8cpp.html", null ],
+    [ "dfcc_utils.cpp", "dfcc__utils_8cpp.html", "dfcc__utils_8cpp" ],
     [ "dfcc_utils.h", "dfcc__utils_8h.html", [
-      [ "dfcc_utilst", "classdfcc__utilst.html", "classdfcc__utilst" ]
+      [ "dfcc_utilst", "structdfcc__utilst.html", "structdfcc__utilst" ]
     ] ],
     [ "dfcc_wrapper_program.cpp", "dfcc__wrapper__program_8cpp.html", "dfcc__wrapper__program_8cpp" ],
     [ "dfcc_wrapper_program.h", "dfcc__wrapper__program_8h.html", [
