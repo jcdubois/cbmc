@@ -309,7 +309,7 @@ var dir_b7878ad5ecbf2506f4125b9d34c97e45 =
       [ "resultt", "structsimplify__exprt_1_1resultt.html", "structsimplify__exprt_1_1resultt" ]
     ] ],
     [ "simplify_expr_floatbv.cpp", "simplify__expr__floatbv_8cpp.html", null ],
-    [ "simplify_expr_if.cpp", "simplify__expr__if_8cpp.html", null ],
+    [ "simplify_expr_if.cpp", "simplify__expr__if_8cpp.html", "simplify__expr__if_8cpp" ],
     [ "simplify_expr_int.cpp", "simplify__expr__int_8cpp.html", "simplify__expr__int_8cpp" ],
     [ "simplify_expr_pointer.cpp", "simplify__expr__pointer_8cpp.html", "simplify__expr__pointer_8cpp" ],
     [ "simplify_expr_struct.cpp", "simplify__expr__struct_8cpp.html", null ],
@@ -338,7 +338,7 @@ var dir_b7878ad5ecbf2506f4125b9d34c97e45 =
     [ "std_types.h", "std__types_8h.html", "std__types_8h" ],
     [ "string2int.cpp", "string2int_8cpp.html", "string2int_8cpp" ],
     [ "string2int.h", "string2int_8h.html", "string2int_8h" ],
-    [ "string_constant.cpp", "string__constant_8cpp.html", null ],
+    [ "string_constant.cpp", "string__constant_8cpp.html", "string__constant_8cpp" ],
     [ "string_constant.h", "string__constant_8h.html", "string__constant_8h" ],
     [ "string_container.cpp", "string__container_8cpp.html", null ],
     [ "string_container.h", "string__container_8h.html", "string__container_8h" ],
@@ -374,9 +374,7 @@ var dir_b7878ad5ecbf2506f4125b9d34c97e45 =
     [ "type.cpp", "type_8cpp.html", "type_8cpp" ],
     [ "type.h", "type_8h.html", "type_8h" ],
     [ "typecheck.cpp", "typecheck_8cpp.html", null ],
-    [ "typecheck.h", "typecheck_8h.html", [
-      [ "typecheckt", "classtypecheckt.html", "classtypecheckt" ]
-    ] ],
+    [ "typecheck.h", "typecheck_8h.html", "typecheck_8h" ],
     [ "ui_message.cpp", "ui__message_8cpp.html", null ],
     [ "ui_message.h", "ui__message_8h.html", "ui__message_8h" ],
     [ "unicode.cpp", "unicode_8cpp.html", "unicode_8cpp" ],
