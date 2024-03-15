@@ -634,19 +634,19 @@
 <text text-anchor="middle" x="356" y="-684" font-family="Helvetica,sans-Serif" font-size="10.00">io_id</text>
 <text text-anchor="middle" x="356" y="-673" font-family="Helvetica,sans-Serif" font-size="10.00">property_id</text>
 </g>
-<!-- Node80 -->
-<g id="node58" class="node">
-<title>Node80</title>
-<g id="a_node58"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="483.5,-216 483.5,-246 624.5,-246 624.5,-216 483.5,-216"/>
-<text text-anchor="start" x="491.5" y="-234" font-family="Helvetica,sans-Serif" font-size="10.00">std::map&lt; irep_idt,</text>
-<text text-anchor="middle" x="554" y="-223" font-family="Helvetica,sans-Serif" font-size="10.00"> optionalt&lt; unsigned &gt; &gt;</text>
+<!-- Node79 -->
+<g id="node57" class="node">
+<title>Node79</title>
+<g id="a_node57"><a xlink:title=" ">
+<polygon fill="none" stroke="#bfbfbf" points="475,-216 475,-246 633,-246 633,-216 475,-216"/>
+<text text-anchor="start" x="483" y="-234" font-family="Helvetica,sans-Serif" font-size="10.00">std::map&lt; irep_idt,</text>
+<text text-anchor="middle" x="554" y="-223" font-family="Helvetica,sans-Serif" font-size="10.00"> std::optional&lt; unsigned &gt; &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node23&#45;&gt;Node80 -->
-<g id="edge92" class="edge">
-<title>Node23&#45;&gt;Node80</title>
+<!-- Node23&#45;&gt;Node79 -->
+<g id="edge91" class="edge">
+<title>Node23&#45;&gt;Node79</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M184.75,-716.04C188.68,-672.03 204.67,-566.53 269,-516 330.35,-467.82 388.92,-549.22 443,-493 473.01,-461.8 439.74,-336.71 461,-299 474.36,-275.3 499.77,-257.49 520.51,-246.06"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="181.26,-715.82 183.98,-726.06 188.24,-716.36 181.26,-715.82"/>
 <text text-anchor="middle" x="356" y="-519" font-family="Helvetica,sans-Serif" font-size="10.00"> keys</text>
@@ -1161,28 +1161,28 @@
 <g id="node56" class="node">
 <title>Node78</title>
 <g id="a_node56"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="476.5,-46.5 476.5,-87.5 631.5,-87.5 631.5,-46.5 476.5,-46.5"/>
-<text text-anchor="start" x="484.5" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::map&lt; std::pair</text>
-<text text-anchor="start" x="484.5" y="-64.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; irep_idt, unsigned</text>
-<text text-anchor="middle" x="554" y="-53.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &gt;, optionalt&lt; unsigned &gt; &gt;</text>
+<polygon fill="none" stroke="#bfbfbf" points="467.5,-46.5 467.5,-87.5 640.5,-87.5 640.5,-46.5 467.5,-46.5"/>
+<text text-anchor="start" x="475.5" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::map&lt; std::pair</text>
+<text text-anchor="start" x="475.5" y="-64.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; irep_idt, unsigned</text>
+<text text-anchor="middle" x="554" y="-53.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &gt;, std::optional&lt; unsigned &gt; &gt;</text>
 </a>
 </g>
 </g>
 <!-- Node40&#45;&gt;Node78 -->
 <g id="edge89" class="edge">
 <title>Node40&#45;&gt;Node78</title>
-<path fill="none" stroke="orange" stroke-dasharray="5,2" d="M191.43,-195.83C203.68,-168.88 229.97,-120.57 269,-98 303.14,-78.26 404.42,-71.08 476.28,-68.48"/>
+<path fill="none" stroke="orange" stroke-dasharray="5,2" d="M191.43,-195.83C203.68,-168.88 229.97,-120.57 269,-98 301.74,-79.07 396.25,-71.69 467.33,-68.82"/>
 <polygon fill="orange" stroke="orange" points="188.08,-194.75 187.29,-205.32 194.49,-197.55 188.08,-194.75"/>
-<text text-anchor="start" x="301.5" y="-123" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; std::pair&lt; irep_idt,</text>
-<text text-anchor="start" x="301.5" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00"> unsigned &gt;, optionalt</text>
+<text text-anchor="start" x="293" y="-123" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; std::pair&lt; irep_idt,</text>
+<text text-anchor="start" x="293" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00"> unsigned &gt;, std::optional</text>
 <text text-anchor="middle" x="356" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; unsigned &gt; &gt;</text>
 </g>
-<!-- Node40&#45;&gt;Node80 -->
-<g id="edge93" class="edge">
-<title>Node40&#45;&gt;Node80</title>
-<path fill="none" stroke="orange" stroke-dasharray="5,2" d="M243.51,-217.6C309.07,-220.44 413.98,-224.98 483.18,-227.98"/>
+<!-- Node40&#45;&gt;Node79 -->
+<g id="edge92" class="edge">
+<title>Node40&#45;&gt;Node79</title>
+<path fill="none" stroke="orange" stroke-dasharray="5,2" d="M243.49,-217.6C306.42,-220.32 405.59,-224.62 474.65,-227.61"/>
 <polygon fill="orange" stroke="orange" points="243.47,-214.09 233.33,-217.16 243.17,-221.09 243.47,-214.09"/>
-<text text-anchor="start" x="305.5" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; irep_idt, optionalt</text>
+<text text-anchor="start" x="297" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; irep_idt, std::optional</text>
 <text text-anchor="middle" x="356" y="-229" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; unsigned &gt; &gt;</text>
 </g>
 <!-- Node75 -->
@@ -1228,32 +1228,32 @@
 <!-- Node78&#45;&gt;Node77 -->
 <g id="edge88" class="edge">
 <title>Node78&#45;&gt;Node77</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M641.53,-78.94C687.47,-85.43 744.86,-93.8 796,-102 812.67,-104.67 831.11,-107.88 846.6,-110.64"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="642,-75.47 631.61,-77.54 641.02,-82.4 642,-75.47"/>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M650.86,-80.26C695.09,-86.55 748.27,-94.35 796,-102 812.67,-104.67 831.11,-107.88 846.6,-110.64"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="651.09,-76.76 640.7,-78.82 650.11,-83.69 651.09,-76.76"/>
 <text text-anchor="middle" x="730.5" y="-105" font-family="Helvetica,sans-Serif" font-size="10.00"> thread_loop_map</text>
 </g>
-<!-- Node79 -->
-<g id="node57" class="node">
-<title>Node79</title>
-<g id="a_node57"><a xlink:href="classabstract__goto__modelt.html" target="_top" xlink:title="Abstract interface to eager or lazy GOTO models.">
+<!-- Node79&#45;&gt;Node77 -->
+<g id="edge90" class="edge">
+<title>Node79&#45;&gt;Node77</title>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M623.37,-213.22C631.37,-210.9 639.39,-208.47 647,-206 725.69,-180.44 816.75,-143.8 858.47,-126.6"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="622.32,-209.88 613.66,-215.98 624.23,-216.61 622.32,-209.88"/>
+<text text-anchor="middle" x="730.5" y="-203" font-family="Helvetica,sans-Serif" font-size="10.00"> loop_map</text>
+</g>
+<!-- Node80 -->
+<g id="node58" class="node">
+<title>Node80</title>
+<g id="a_node58"><a xlink:href="classabstract__goto__modelt.html" target="_top" xlink:title="Abstract interface to eager or lazy GOTO models.">
 <polygon fill="none" stroke="black" points="492.5,-106.5 492.5,-125.5 615.5,-125.5 615.5,-106.5 492.5,-106.5"/>
 <text text-anchor="middle" x="554" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">abstract_goto_modelt</text>
 </a>
 </g>
 </g>
-<!-- Node79&#45;&gt;Node77 -->
-<g id="edge90" class="edge">
-<title>Node79&#45;&gt;Node77</title>
+<!-- Node80&#45;&gt;Node77 -->
+<g id="edge93" class="edge">
+<title>Node80&#45;&gt;Node77</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M625.89,-116.22C694.12,-116.43 794.43,-116.73 846.79,-116.89"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="625.66,-112.72 615.65,-116.19 625.64,-119.72 625.66,-112.72"/>
 <text text-anchor="middle" x="730.5" y="-120" font-family="Helvetica,sans-Serif" font-size="10.00"> goto_model</text>
-</g>
-<!-- Node80&#45;&gt;Node77 -->
-<g id="edge91" class="edge">
-<title>Node80&#45;&gt;Node77</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M623.37,-213.22C631.37,-210.9 639.39,-208.47 647,-206 725.69,-180.44 816.75,-143.8 858.47,-126.6"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="622.32,-209.88 613.66,-215.98 624.23,-216.61 622.32,-209.88"/>
-<text text-anchor="middle" x="730.5" y="-203" font-family="Helvetica,sans-Serif" font-size="10.00"> loop_map</text>
 </g>
 <!-- Node81 -->
 <g id="node59" class="node">

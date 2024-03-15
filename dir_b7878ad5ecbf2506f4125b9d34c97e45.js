@@ -87,8 +87,6 @@ var dir_b7878ad5ecbf2506f4125b9d34c97e45 =
     [ "expr_iterator.h", "expr__iterator_8h.html", "expr__iterator_8h" ],
     [ "expr_util.cpp", "expr__util_8cpp.html", "expr__util_8cpp" ],
     [ "expr_util.h", "expr__util_8h.html", "expr__util_8h" ],
-    [ "file_util.cpp", "file__util_8cpp.html", "file__util_8cpp" ],
-    [ "file_util.h", "file__util_8h.html", "file__util_8h" ],
     [ "find_macros.cpp", "find__macros_8cpp.html", "find__macros_8cpp" ],
     [ "find_macros.h", "find__macros_8h.html", "find__macros_8h" ],
     [ "find_symbols.cpp", "find__symbols_8cpp.html", "find__symbols_8cpp" ],
@@ -189,7 +187,6 @@ var dir_b7878ad5ecbf2506f4125b9d34c97e45 =
     [ "lispirep.h", "lispirep_8h.html", "lispirep_8h" ],
     [ "lower_byte_operators.cpp", "lower__byte__operators_8cpp.html", "lower__byte__operators_8cpp" ],
     [ "magic.h", "magic_8h.html", "magic_8h" ],
-    [ "make_unique.h", "make__unique_8h.html", "make__unique_8h" ],
     [ "mathematical_expr.cpp", "mathematical__expr_8cpp.html", "mathematical__expr_8cpp" ],
     [ "mathematical_expr.h", "mathematical__expr_8h.html", "mathematical__expr_8h" ],
     [ "mathematical_types.cpp", "mathematical__types_8cpp.html", "mathematical__types_8cpp" ],
@@ -234,14 +231,12 @@ var dir_b7878ad5ecbf2506f4125b9d34c97e45 =
       [ "statet", "structnfat_1_1statet.html", "structnfat_1_1statet" ],
       [ "transitiont", "structnfat_1_1transitiont.html", "structnfat_1_1transitiont" ]
     ] ],
-    [ "nodiscard.h", "nodiscard_8h.html", "nodiscard_8h" ],
     [ "nondet_bool.h", "nondet__bool_8h.html", "nondet__bool_8h" ],
     [ "numbering.h", "numbering_8h.html", [
       [ "numberingt", "classnumberingt.html", "classnumberingt" ]
     ] ],
     [ "object_factory_parameters.cpp", "object__factory__parameters_8cpp.html", "object__factory__parameters_8cpp" ],
     [ "object_factory_parameters.h", "object__factory__parameters_8h.html", "object__factory__parameters_8h" ],
-    [ "optional.h", "optional_8h.html", "optional_8h" ],
     [ "optional_utils.h", "optional__utils_8h.html", "optional__utils_8h" ],
     [ "options.cpp", "options_8cpp.html", null ],
     [ "options.h", "options_8h.html", [
