@@ -4,7 +4,6 @@ var classsimplify__exprt =
     [ "simplify_exprt", "classsimplify__exprt.html#a8c8c1f39f317c70bdbe281af3ac5103b", null ],
     [ "~simplify_exprt", "classsimplify__exprt.html#aa444b7069d731ff599c8931bb643e990", null ],
     [ "changed", "classsimplify__exprt.html#a4891492541975b0557b78cbbd73bbed1", null ],
-    [ "is_bitvector_type", "classsimplify__exprt.html#a04d0444a8114c66481ccb2d7132aa500", null ],
     [ "simplify", "classsimplify__exprt.html#acc99ab3b39ccee8109412b8b7c198bbc", null ],
     [ "simplify_abs", "classsimplify__exprt.html#a1eb7394775bf3f7012ca2c20821a71de", null ],
     [ "simplify_address_of", "classsimplify__exprt.html#a4cc3f6c3f3572573eebaa1044b5c8303", null ],
@@ -83,6 +82,7 @@ var classsimplify__exprt =
     [ "simplify_unary_pointer_predicate_preorder", "classsimplify__exprt.html#a4c49e6b2414c72cbd3c94fdcac83c973", null ],
     [ "simplify_update", "classsimplify__exprt.html#ac913c4764c2a86583aaf19e8056bad42", null ],
     [ "simplify_with", "classsimplify__exprt.html#aa450966cb47d0e7ff2839200df642b3e", null ],
+    [ "simplify_zero_extend", "classsimplify__exprt.html#a3842b1e5fc9659caa720c234dd743576", null ],
     [ "unchanged", "classsimplify__exprt.html#abe0382ab13fb829ab12b2058b1255577", null ],
     [ "do_simplify_if", "classsimplify__exprt.html#aeead73ae3d17be163dded212e9b37fa9", null ],
     [ "ns", "classsimplify__exprt.html#a0dc7f96e955895764c4a6525a659000d", null ]

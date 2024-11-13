@@ -147,6 +147,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a914b84b11ff4f95bb6d53444cb78e985 inherit pub_methods_classboolbvt"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboolbvt.html#a914b84b11ff4f95bb6d53444cb78e985">print_assignment</a> (std::ostream &amp;out) const override</td></tr>
 <tr class="memdesc:a914b84b11ff4f95bb6d53444cb78e985 inherit pub_methods_classboolbvt"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print satisfying assignment to <code>out</code>.  <a href="classboolbvt.html#a914b84b11ff4f95bb6d53444cb78e985">More...</a><br /></td></tr>
 <tr class="separator:a914b84b11ff4f95bb6d53444cb78e985 inherit pub_methods_classboolbvt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a713988a7c5457ec2d9aefd1452fd56f0 inherit pub_methods_classboolbvt"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classexprt.html">exprt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboolbvt.html#a713988a7c5457ec2d9aefd1452fd56f0">handle</a> (const <a class="el" href="classexprt.html">exprt</a> &amp;) override</td></tr>
+<tr class="memdesc:a713988a7c5457ec2d9aefd1452fd56f0 inherit pub_methods_classboolbvt"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a handle, which is an expression that has the same value as the argument in any model that is generated; this offers an efficient way to refer to the expression in subsequent calls to <a class="el" href="classboolbvt.html#a8f2eb906e533286456a7fbae76235319">get</a> or <a class="el" href="classboolbvt.html#a7dcec20e6bf578ca76f667c819a53e57">set_to</a>.  <a href="classboolbvt.html#a713988a7c5457ec2d9aefd1452fd56f0">More...</a><br /></td></tr>
+<tr class="separator:a713988a7c5457ec2d9aefd1452fd56f0 inherit pub_methods_classboolbvt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e6700e5b4929aafa741aa6bad4fa9e7 inherit pub_methods_classboolbvt"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboolbvt.html#a6e6700e5b4929aafa741aa6bad4fa9e7">clear_cache</a> () override</td></tr>
 <tr class="separator:a6e6700e5b4929aafa741aa6bad4fa9e7 inherit pub_methods_classboolbvt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef28c240526a8d9d5c9f24265c9483f2 inherit pub_methods_classboolbvt"><td class="memItemLeft" align="right" valign="top"><a class="el" href="smt__terms_8h.html#a68a9c335b3b75c987bf5d42b3cc8b0e0">mp_integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboolbvt.html#aef28c240526a8d9d5c9f24265c9483f2">get_value</a> (const <a class="el" href="literal_8h.html#aa86e912c029391c43aeffc6402b57e33">bvt</a> &amp;bv)</td></tr>
@@ -285,6 +288,7 @@ Protected Types</h2></td></tr>
 &#160;&#160;<a class="el" href="classarrayst.html#abf46e9ba2acbb5c3115d5ae88cdfd408a181894e95a52a30cdc64606fe4946b1d">ARRAY_TYPECAST</a>
 , <a class="el" href="classarrayst.html#abf46e9ba2acbb5c3115d5ae88cdfd408a8950dd2a1ad6437b6848ebbb0bf6d229">ARRAY_CONSTANT</a>
 , <a class="el" href="classarrayst.html#abf46e9ba2acbb5c3115d5ae88cdfd408ae38fca23168233d6adc9249c09785671">ARRAY_COMPREHENSION</a>
+, <a class="el" href="classarrayst.html#abf46e9ba2acbb5c3115d5ae88cdfd408a5cfcc0cd85285a72e7ebbacb2e12e62d">ARRAY_LET</a>
 <br />
  }</td></tr>
 <tr class="separator:abf46e9ba2acbb5c3115d5ae88cdfd408 inherit pro_types_classarrayst"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -298,6 +302,8 @@ Protected Types</h2></td></tr>
 , <a class="el" href="classarrayst.html#a745f59a0c6b09400f9fb678b13a69d34a8950dd2a1ad6437b6848ebbb0bf6d229">ARRAY_CONSTANT</a>
 , <a class="el" href="classarrayst.html#a745f59a0c6b09400f9fb678b13a69d34ae38fca23168233d6adc9249c09785671">ARRAY_COMPREHENSION</a>
 , <a class="el" href="classarrayst.html#a745f59a0c6b09400f9fb678b13a69d34ac0f26a4598d2b14da4c103f9aa52ad91">ARRAY_EQUALITY</a>
+, <br />
+&#160;&#160;<a class="el" href="classarrayst.html#a745f59a0c6b09400f9fb678b13a69d34a5cfcc0cd85285a72e7ebbacb2e12e62d">ARRAY_LET</a>
 <br />
  }</td></tr>
 <tr class="separator:a745f59a0c6b09400f9fb678b13a69d34 inherit pro_types_classarrayst"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -796,7 +802,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00228">228</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00227">227</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -825,7 +831,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00900">900</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00879">879</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -871,7 +877,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classboolbvt.html#a6a623e2bc1860eaf6fa1303b6433bec6">boolbvt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00775">775</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00754">754</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -899,7 +905,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00238">238</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00237">237</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -938,7 +944,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classboolbvt.html#a34f4d4fcb281e7074cecb324d588ee58">boolbvt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00611">611</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00621">621</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -966,7 +972,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00371">371</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00376">376</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -996,7 +1002,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classboolbvt.html#af78c5a7a2e0aca78bf5d099e095e6143">boolbvt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00127">127</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00126">126</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1034,7 +1040,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00811">811</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00790">790</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1074,7 +1080,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classboolbvt.html#acba172f67186256da0af9735ef1c8670">boolbvt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00073">73</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00072">72</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1103,7 +1109,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classboolbvt.html#a99076770b7cf5365c840eef76c0195b5">boolbvt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l01026">1026</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l01005">1005</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1131,7 +1137,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00092">92</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00091">91</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1159,7 +1165,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00078">78</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00077">77</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1187,7 +1193,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00084">84</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00083">83</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1235,7 +1241,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Vector of literals identifying the object part of <code>bv</code> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00097">97</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00096">96</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1283,7 +1289,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer encoding </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00117">117</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00116">116</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1327,7 +1333,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00823">823</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00802">802</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1377,7 +1383,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00874">874</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00853">853</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1427,7 +1433,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00834">834</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00813">813</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1477,7 +1483,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00852">852</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00831">831</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1525,7 +1531,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Vector of literals identifying the offset part of <code>bv</code> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00108">108</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00107">107</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1555,7 +1561,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Create Boolean functions describing all dynamic and all not-dynamic object encodings over <code>placeholders</code> as input Boolean variables representing object bits. </p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00918">918</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00897">897</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>
@@ -1585,7 +1591,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Create Boolean functions describing all objects of each known object size over <code>placeholders</code> as input Boolean variables representing object bits. </p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00970">970</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers_8cpp_source.html#l00949">949</a> of file <a class="el" href="bv__pointers_8cpp_source.html">bv_pointers.cpp</a>.</p>
 
 </div>
 </div>

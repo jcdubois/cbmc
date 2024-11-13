@@ -149,6 +149,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a914b84b11ff4f95bb6d53444cb78e985 inherit pub_methods_classboolbvt"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboolbvt.html#a914b84b11ff4f95bb6d53444cb78e985">print_assignment</a> (std::ostream &amp;out) const override</td></tr>
 <tr class="memdesc:a914b84b11ff4f95bb6d53444cb78e985 inherit pub_methods_classboolbvt"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print satisfying assignment to <code>out</code>.  <a href="classboolbvt.html#a914b84b11ff4f95bb6d53444cb78e985">More...</a><br /></td></tr>
 <tr class="separator:a914b84b11ff4f95bb6d53444cb78e985 inherit pub_methods_classboolbvt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a713988a7c5457ec2d9aefd1452fd56f0 inherit pub_methods_classboolbvt"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classexprt.html">exprt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboolbvt.html#a713988a7c5457ec2d9aefd1452fd56f0">handle</a> (const <a class="el" href="classexprt.html">exprt</a> &amp;) override</td></tr>
+<tr class="memdesc:a713988a7c5457ec2d9aefd1452fd56f0 inherit pub_methods_classboolbvt"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a handle, which is an expression that has the same value as the argument in any model that is generated; this offers an efficient way to refer to the expression in subsequent calls to <a class="el" href="classboolbvt.html#a8f2eb906e533286456a7fbae76235319">get</a> or <a class="el" href="classboolbvt.html#a7dcec20e6bf578ca76f667c819a53e57">set_to</a>.  <a href="classboolbvt.html#a713988a7c5457ec2d9aefd1452fd56f0">More...</a><br /></td></tr>
+<tr class="separator:a713988a7c5457ec2d9aefd1452fd56f0 inherit pub_methods_classboolbvt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e6700e5b4929aafa741aa6bad4fa9e7 inherit pub_methods_classboolbvt"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboolbvt.html#a6e6700e5b4929aafa741aa6bad4fa9e7">clear_cache</a> () override</td></tr>
 <tr class="separator:a6e6700e5b4929aafa741aa6bad4fa9e7 inherit pub_methods_classboolbvt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99076770b7cf5365c840eef76c0195b5 inherit pub_methods_classboolbvt"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboolbvt.html#a99076770b7cf5365c840eef76c0195b5">finish_eager_conversion</a> () override</td></tr>
@@ -287,6 +290,7 @@ Protected Types</h2></td></tr>
 &#160;&#160;<a class="el" href="classarrayst.html#abf46e9ba2acbb5c3115d5ae88cdfd408a181894e95a52a30cdc64606fe4946b1d">ARRAY_TYPECAST</a>
 , <a class="el" href="classarrayst.html#abf46e9ba2acbb5c3115d5ae88cdfd408a8950dd2a1ad6437b6848ebbb0bf6d229">ARRAY_CONSTANT</a>
 , <a class="el" href="classarrayst.html#abf46e9ba2acbb5c3115d5ae88cdfd408ae38fca23168233d6adc9249c09785671">ARRAY_COMPREHENSION</a>
+, <a class="el" href="classarrayst.html#abf46e9ba2acbb5c3115d5ae88cdfd408a5cfcc0cd85285a72e7ebbacb2e12e62d">ARRAY_LET</a>
 <br />
  }</td></tr>
 <tr class="separator:abf46e9ba2acbb5c3115d5ae88cdfd408 inherit pro_types_classarrayst"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -300,6 +304,8 @@ Protected Types</h2></td></tr>
 , <a class="el" href="classarrayst.html#a745f59a0c6b09400f9fb678b13a69d34a8950dd2a1ad6437b6848ebbb0bf6d229">ARRAY_CONSTANT</a>
 , <a class="el" href="classarrayst.html#a745f59a0c6b09400f9fb678b13a69d34ae38fca23168233d6adc9249c09785671">ARRAY_COMPREHENSION</a>
 , <a class="el" href="classarrayst.html#a745f59a0c6b09400f9fb678b13a69d34ac0f26a4598d2b14da4c103f9aa52ad91">ARRAY_EQUALITY</a>
+, <br />
+&#160;&#160;<a class="el" href="classarrayst.html#a745f59a0c6b09400f9fb678b13a69d34a5cfcc0cd85285a72e7ebbacb2e12e62d">ARRAY_LET</a>
 <br />
  }</td></tr>
 <tr class="separator:a745f59a0c6b09400f9fb678b13a69d34 inherit pro_types_classarrayst"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -824,7 +830,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00845">845</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00847">847</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -900,7 +906,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classboolbvt.html#a6a623e2bc1860eaf6fa1303b6433bec6">boolbvt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00742">742</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00744">744</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -967,7 +973,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classboolbvt.html#a34f4d4fcb281e7074cecb324d588ee58">boolbvt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00559">559</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00561">561</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -995,7 +1001,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00298">298</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00299">299</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -1053,7 +1059,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00863">863</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00865">865</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -1091,7 +1097,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00778">778</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00780">780</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -1160,7 +1166,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classprop__conv__solvert.html#a49cea6450ecfb82bfab5d7076f562500">prop_conv_solvert</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00941">941</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00943">943</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -1356,7 +1362,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00790">790</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00792">792</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -1406,7 +1412,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00819">819</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00821">821</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
@@ -1456,7 +1462,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00801">801</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bv__pointers__wide_8cpp_source.html#l00803">803</a> of file <a class="el" href="bv__pointers__wide_8cpp_source.html">bv_pointers_wide.cpp</a>.</p>
 
 </div>
 </div>
