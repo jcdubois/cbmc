@@ -858,7 +858,10 @@ var hierarchy =
       [ "satcheck_minisat2_baset< Minisat::Solver >", "classsatcheck__minisat2__baset.html", [
         [ "satcheck_minisat_no_simplifiert", "classsatcheck__minisat__no__simplifiert.html", null ]
       ] ],
-      [ "satcheck_cadicalt", "classsatcheck__cadicalt.html", null ],
+      [ "satcheck_cadical_baset", "classsatcheck__cadical__baset.html", [
+        [ "satcheck_cadical_no_preprocessingt", "classsatcheck__cadical__no__preprocessingt.html", null ],
+        [ "satcheck_cadical_preprocessingt", "classsatcheck__cadical__preprocessingt.html", null ]
+      ] ],
       [ "satcheck_glucose_baset< T >", "classsatcheck__glucose__baset.html", null ],
       [ "satcheck_ipasirt", "classsatcheck__ipasirt.html", null ],
       [ "satcheck_minisat2_baset< T >", "classsatcheck__minisat2__baset.html", null ]
@@ -1321,7 +1324,7 @@ var hierarchy =
             [ "satcheck_booleforce_coret", "classsatcheck__booleforce__coret.html", null ],
             [ "satcheck_booleforcet", "classsatcheck__booleforcet.html", null ]
           ] ],
-          [ "satcheck_cadicalt", "classsatcheck__cadicalt.html", null ],
+          [ "satcheck_cadical_baset", "classsatcheck__cadical__baset.html", null ],
           [ "satcheck_glucose_baset< T >", "classsatcheck__glucose__baset.html", null ],
           [ "satcheck_ipasirt", "classsatcheck__ipasirt.html", null ],
           [ "satcheck_lingelingt", "classsatcheck__lingelingt.html", null ],
@@ -1588,6 +1591,7 @@ var hierarchy =
               [ "array_list_exprt", "classarray__list__exprt.html", null ],
               [ "bitand_exprt", "classbitand__exprt.html", null ],
               [ "bitor_exprt", "classbitor__exprt.html", null ],
+              [ "bitxnor_exprt", "classbitxnor__exprt.html", null ],
               [ "bitxor_exprt", "classbitxor__exprt.html", null ],
               [ "concatenation_exprt", "classconcatenation__exprt.html", null ],
               [ "cond_exprt", "classcond__exprt.html", null ],

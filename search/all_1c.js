@@ -142,7 +142,7 @@ var searchData=
   ['_7erw_5frange_5fsett_22147',['~rw_range_sett',['../classrw__range__sett.html#a2bc02d75998a4d440dad775d25d24e1e',1,'rw_range_sett']]],
   ['_7erw_5fset_5fbaset_22148',['~rw_set_baset',['../classrw__set__baset.html#af36e846fec3c381959f4df978922d7f6',1,'rw_set_baset']]],
   ['_7esatcheck_5fbooleforce_5fbaset_22149',['~satcheck_booleforce_baset',['../classsatcheck__booleforce__baset.html#a063af5ce424f4d4283bba90a70e86eaf',1,'satcheck_booleforce_baset']]],
-  ['_7esatcheck_5fcadicalt_22150',['~satcheck_cadicalt',['../classsatcheck__cadicalt.html#a41c8701d5a024f77876adf043ed8c9b6',1,'satcheck_cadicalt']]],
+  ['_7esatcheck_5fcadical_5fbaset_22150',['~satcheck_cadical_baset',['../classsatcheck__cadical__baset.html#a1db329835fe88a0928bf3e820a38d314',1,'satcheck_cadical_baset']]],
   ['_7esatcheck_5fglucose_5fbaset_22151',['~satcheck_glucose_baset',['../classsatcheck__glucose__baset.html#a535b46585c700e9261ceaa42a549686d',1,'satcheck_glucose_baset']]],
   ['_7esatcheck_5fipasirt_22152',['~satcheck_ipasirt',['../classsatcheck__ipasirt.html#a339fe697bb49559b525a3ccc05cba63f',1,'satcheck_ipasirt']]],
   ['_7esatcheck_5flingelingt_22153',['~satcheck_lingelingt',['../classsatcheck__lingelingt.html#a9854bb7a34f016849dabee1a550d842b',1,'satcheck_lingelingt']]],
