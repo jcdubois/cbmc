@@ -7,6 +7,10 @@ Date: August 2022
 
 \*******************************************************************/
 
+// TODO when scanning the goto functions to detect pointer predicates,
+// replace pointer equality p == q with __CPROVER_pointer_equals(p,q)
+// in all user-defined memory predicates.
+
 #include "dfcc_lift_memory_predicates.h"
 
 #include <util/cprover_prefix.h>
@@ -44,7 +48,8 @@ bool dfcc_lift_memory_predicatest::is_lifted_function(
 /// True iff function_id is a core memory predicate
 static bool is_core_memory_predicate(const irep_idt &function_id)
 {
-  return (function_id == CPROVER_PREFIX "is_fresh") ||
+  return (function_id == CPROVER_PREFIX "pointer_equals") ||
+         (function_id == CPROVER_PREFIX "is_fresh") ||
          (function_id == CPROVER_PREFIX "pointer_in_range_dfcc") ||
          (function_id == CPROVER_PREFIX "obeys_contract");
 }
@@ -231,7 +236,15 @@ void dfcc_lift_memory_predicatest::collect_parameters_to_lift(
     {
       const irep_idt &callee_id =
         to_symbol_expr(it.call_function()).get_identifier();
-      if(callee_id == CPROVER_PREFIX "is_fresh")
+      if(callee_id == CPROVER_PREFIX "pointer_equals")
+      {
+        auto opt_rank = is_param_expr(it.call_arguments()[0], parameter_rank);
+        if(opt_rank.has_value())
+        {
+          lifted_parameters[function_id].insert(opt_rank.value());
+        }
+      }
+      else if(callee_id == CPROVER_PREFIX "is_fresh")
       {
         auto opt_rank = is_param_expr(it.call_arguments()[0], parameter_rank);
         if(opt_rank.has_value())

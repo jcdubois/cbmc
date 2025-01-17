@@ -1162,6 +1162,62 @@ void __CPROVER_contracts_make_invalid_pointer(void **ptr)
 #endif
 }
 
+/// \brief Implementation of the `pointer_equals` front-end predicate.
+///
+/// \param ptr1 First argument of the `pointer_equals` predicate
+/// \param ptr2 Second argument of the `pointer_equals` predicate
+/// \param write_set Write set which conveys the invocation context
+///   (requires/ensures clause, assert/assume context);
+///
+/// \details The behaviour is as follows:
+/// When \p set->assume_requires_ctx or \p set->assume_ensures_ctx is `true`,
+/// the predicate nondeterministically invalidates `*ptr1` and returns `false`,
+/// or checks that `ptr2` is either NULL or valid, and assigns `*ptr1` to `ptr2`.
+/// When \p set->assert_requires_ctx or \p set->assert_ensures_ctx is `true`,
+/// the predicate checks that both `*ptr1` and `ptr2` are either NULL or valid,
+/// and returns the value of (*ptr1 == ptr2).
+__CPROVER_bool __CPROVER_contracts_pointer_equals(
+  void **ptr1,
+  void *ptr2,
+  __CPROVER_contracts_write_set_ptr_t write_set)
+{
+__CPROVER_HIDE:;
+  __CPROVER_assert(
+    (write_set != 0) & ((write_set->assume_requires_ctx == 1) |
+                        (write_set->assert_requires_ctx == 1) |
+                        (write_set->assume_ensures_ctx == 1) |
+                        (write_set->assert_ensures_ctx == 1)),
+    "__CPROVER_is_fresh is used only in requires or ensures clauses");
+#ifdef __CPROVER_DFCC_DEBUG_LIB
+  __CPROVER_assert(
+    __CPROVER_rw_ok(write_set, sizeof(__CPROVER_contracts_write_set_t)),
+    "set readable");
+#endif
+  if(write_set->assume_requires_ctx | write_set->assume_ensures_ctx)
+  {
+    if(__VERIFIER_nondet___CPROVER_bool())
+    {
+      __CPROVER_contracts_make_invalid_pointer(ptr1);
+      return 0;
+    }
+    __CPROVER_assert(
+      (ptr2 == 0) || __CPROVER_r_ok(ptr2, 0),
+      "pointer_equals is only called with valid pointers");
+    *ptr1 = ptr2;
+    return 1;
+  }
+  else /* write_set->assert_requires_ctx | write_set->assert_ensures_ctx */
+  {
+    void *derefd = *ptr1;
+    __CPROVER_assert(
+      (derefd == 0) || __CPROVER_r_ok(derefd, 0),
+      "pointer_equals is only called with valid pointers");
+    __CPROVER_assert(
+      (ptr2 == 0) || __CPROVER_r_ok(ptr2, 0),
+      "pointer_equals is only called with valid pointers");
+    return derefd == ptr2;
+  }
+}
 
 /// \brief Implementation of the `is_fresh` front-end predicate.
 ///

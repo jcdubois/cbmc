@@ -37,6 +37,7 @@ Author: Remi Delmas, delmarsd@amazon.com
 #include "dfcc_is_fresh.h"
 #include "dfcc_library.h"
 #include "dfcc_obeys_contract.h"
+#include "dfcc_pointer_equals.h"
 #include "dfcc_pointer_in_range.h"
 #include "dfcc_spec_functions.h"
 #include "dfcc_utils.h"
@@ -525,6 +526,11 @@ void dfcc_instrumentt::instrument_instructions(
   dfcc_cfg_infot &cfg_info,
   std::set<irep_idt> &function_pointer_contracts)
 {
+  // rewrite pointer_equals calls
+  dfcc_pointer_equalst pointer_equals(library, message_handler);
+  pointer_equals.rewrite_calls(
+    goto_program, first_instruction, last_instruction, cfg_info);
+
   // rewrite pointer_in_range calls
   dfcc_pointer_in_ranget pointer_in_range(library, message_handler);
   pointer_in_range.rewrite_calls(

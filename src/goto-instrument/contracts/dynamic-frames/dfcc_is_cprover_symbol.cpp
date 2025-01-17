@@ -53,6 +53,7 @@ init_function_symbols(std::unordered_set<irep_idt> &function_symbols)
                             "contracts_obj_set_create_indexed_by_object_id");
     function_symbols.insert(CPROVER_PREFIX "contracts_obj_set_release");
     function_symbols.insert(CPROVER_PREFIX "contracts_obj_set_remove");
+    function_symbols.insert(CPROVER_PREFIX "contracts_pointer_equals");
     function_symbols.insert(CPROVER_PREFIX "contracts_pointer_in_range_dfcc");
     function_symbols.insert(CPROVER_PREFIX "contracts_was_freed");
     function_symbols.insert(CPROVER_PREFIX "contracts_write_set_add_allocated");

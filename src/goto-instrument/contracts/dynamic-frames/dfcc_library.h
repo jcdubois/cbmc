@@ -126,6 +126,8 @@ enum class dfcc_funt
   LINK_ALLOCATED,
   /// \see __CPROVER_contracts_link_deallocated
   LINK_DEALLOCATED,
+  /// \see __CPROVER_contracts_pointer_equals
+  POINTER_EQUALS,
   /// \see __CPROVER_contracts_is_fresh
   IS_FRESH,
   /// \see __CPROVER_contracts_pointer_in_range_dfcc

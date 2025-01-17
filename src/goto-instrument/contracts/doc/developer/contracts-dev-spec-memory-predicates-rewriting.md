@@ -8,6 +8,9 @@ The C extensions for contract specification provide three pointer-related memory
 predicates:
 
 ```c
+// Holds iff ptr1 and ptr2 are both either null or valid and are equal.
+__CPROVER_bool __CPROVER_pointer_equals(void *ptr1, void* ptr2);
+
 // Holds iff ptr is pointing to an object distinct to all objects pointed to by
 // other __CPROVER_is_fresh occurrences in the contract's pre and post conditions
 __CPROVER_bool __CPROVER_is_fresh(void *ptr, size_t size);

@@ -125,6 +125,7 @@ const std::map<dfcc_funt, irep_idt> create_dfcc_fun_to_name()
     {dfcc_funt::LINK_IS_FRESH, CONTRACTS_PREFIX "link_is_fresh"},
     {dfcc_funt::LINK_ALLOCATED, CONTRACTS_PREFIX "link_allocated"},
     {dfcc_funt::LINK_DEALLOCATED, CONTRACTS_PREFIX "link_deallocated"},
+    {dfcc_funt::POINTER_EQUALS, CONTRACTS_PREFIX "pointer_equals"},
     {dfcc_funt::IS_FRESH, CONTRACTS_PREFIX "is_fresh"},
     {dfcc_funt::POINTER_IN_RANGE_DFCC,
      CONTRACTS_PREFIX "pointer_in_range_dfcc"},
