@@ -136,7 +136,7 @@ void __CPROVER_contracts_car_set_create(
   __CPROVER_size_t max_elems)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     __CPROVER_rw_ok(set, sizeof(__CPROVER_contracts_car_set_t)),
     "set writable");
@@ -159,7 +159,7 @@ void __CPROVER_contracts_car_set_insert(
   __CPROVER_size_t size)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert((set != 0) & (idx < set->max_elems), "no OOB access");
 #endif
   __CPROVER_assert(
@@ -239,7 +239,7 @@ void __CPROVER_contracts_obj_set_create_indexed_by_object_id(
   __CPROVER_contracts_obj_set_ptr_t set)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     __CPROVER_rw_ok(set, sizeof(__CPROVER_contracts_obj_set_t)),
     "set writable");
@@ -274,7 +274,7 @@ void __CPROVER_contracts_obj_set_create_append(
   __CPROVER_size_t max_elems)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     __CPROVER_rw_ok(set, sizeof(__CPROVER_contracts_obj_set_t)),
     "set writable");
@@ -292,7 +292,7 @@ __CPROVER_HIDE:;
 void __CPROVER_contracts_obj_set_release(__CPROVER_contracts_obj_set_ptr_t set)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     __CPROVER_rw_ok(set, sizeof(__CPROVER_contracts_obj_set_t)),
     "set readable");
@@ -311,7 +311,7 @@ void __CPROVER_contracts_obj_set_add(
 {
 __CPROVER_HIDE:;
   __CPROVER_size_t object_id = __CPROVER_POINTER_OBJECT(ptr);
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(set->indexed_by_object_id, "indexed by object id");
   __CPROVER_assert(object_id < set->max_elems, "no OOB access");
 #endif
@@ -329,7 +329,7 @@ void __CPROVER_contracts_obj_set_append(
   void *ptr)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(!(set->indexed_by_object_id), "not indexed by object id");
   __CPROVER_assert(set->watermark < set->max_elems, "no OOB access");
 #endif
@@ -349,7 +349,7 @@ void __CPROVER_contracts_obj_set_remove(
 {
 __CPROVER_HIDE:;
   __CPROVER_size_t object_id = __CPROVER_POINTER_OBJECT(ptr);
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(set->indexed_by_object_id, "indexed by object id");
   __CPROVER_assert(object_id < set->max_elems, "no OOB access");
 #endif
@@ -369,7 +369,7 @@ __CPROVER_bool __CPROVER_contracts_obj_set_contains(
 {
 __CPROVER_HIDE:;
   __CPROVER_size_t object_id = __CPROVER_POINTER_OBJECT(ptr);
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(set->indexed_by_object_id, "indexed by object id");
   __CPROVER_assert(object_id < set->max_elems, "no OOB access");
 #endif
@@ -386,7 +386,7 @@ __CPROVER_bool __CPROVER_contracts_obj_set_contains_exact(
 {
 __CPROVER_HIDE:;
   __CPROVER_size_t object_id = __CPROVER_POINTER_OBJECT(ptr);
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(set->indexed_by_object_id, "indexed by object id");
   __CPROVER_assert(object_id < set->max_elems, "no OOB access");
 #endif
@@ -421,7 +421,7 @@ void __CPROVER_contracts_write_set_create(
   __CPROVER_bool allow_deallocate)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     __CPROVER_w_ok(set, sizeof(__CPROVER_contracts_write_set_t)),
     "set writable");
@@ -450,7 +450,7 @@ void __CPROVER_contracts_write_set_release(
   __CPROVER_contracts_write_set_ptr_t set)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     __CPROVER_rw_ok(set, sizeof(__CPROVER_contracts_write_set_t)),
     "set readable");
@@ -574,7 +574,7 @@ __CPROVER_HIDE:;
 
   // store pointer
   __CPROVER_size_t object_id = __CPROVER_POINTER_OBJECT(ptr);
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   // manually inlined below
   __CPROVER_contracts_obj_set_add(&(set->contract_frees), ptr);
   __CPROVER_assert(object_id < set->contract_frees.max_elems, "no OOB access");
@@ -587,7 +587,7 @@ __CPROVER_HIDE:;
 #endif
 
   // append pointer if available
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_contracts_obj_set_append(&(set->contract_frees_append), ptr);
 #else
   set->contract_frees_append.nof_elems = set->contract_frees_append.watermark;
@@ -606,7 +606,7 @@ void __CPROVER_contracts_write_set_add_allocated(
 {
 __CPROVER_HIDE:;
   __CPROVER_assert(set->allow_allocate, "dynamic allocation is allowed");
-#if DFCC_DEBUG
+#if __CPROVER_DFCC_DEBUG_LIB
   // call inlined below
   __CPROVER_contracts_obj_set_add(&(set->allocated), ptr);
 #else
@@ -627,7 +627,7 @@ void __CPROVER_contracts_write_set_add_decl(
   void *ptr)
 {
 __CPROVER_HIDE:;
-#if DFCC_DEBUG
+#if __CPROVER_DFCC_DEBUG_LIB
   // call inlined below
   __CPROVER_contracts_obj_set_add(&(set->allocated), ptr);
 #else
@@ -652,7 +652,7 @@ void __CPROVER_contracts_write_set_record_dead(
   void *ptr)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   // manually inlined below
   __CPROVER_contracts_obj_set_remove(&(set->allocated), ptr);
 #else
@@ -677,7 +677,7 @@ void __CPROVER_contracts_write_set_record_deallocated(
   void *ptr)
 {
 __CPROVER_HIDE:;
-#if DFCC_DEBUG
+#if __CPROVER_DFCC_DEBUG_LIB
   // we record the deallocation to be able to evaluate was_freed post conditions
   __CPROVER_contracts_obj_set_add(&(set->deallocated), ptr);
   __CPROVER_contracts_obj_set_remove(&(set->allocated), ptr);
@@ -745,7 +745,7 @@ __CPROVER_bool __CPROVER_contracts_write_set_check_assignment(
   __CPROVER_contracts_write_set_ptr_t set,
   void *ptr,
   __CPROVER_size_t size)
-#if DFCC_DEBUG
+#if __CPROVER_DFCC_DEBUG_LIB
 // manually inlined below
 {
 __CPROVER_HIDE:;
@@ -926,7 +926,7 @@ __CPROVER_bool __CPROVER_contracts_write_set_check_deallocate(
 __CPROVER_HIDE:;
   __CPROVER_size_t object_id = __CPROVER_POINTER_OBJECT(ptr);
 
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     set->contract_frees.indexed_by_object_id,
     "set->contract_frees is indexed by object id");
@@ -984,7 +984,7 @@ __CPROVER_bool __CPROVER_contracts_write_set_check_frees_clause_inclusion(
   __CPROVER_contracts_write_set_ptr_t candidate)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     reference->contract_frees.indexed_by_object_id,
     "reference->contract_frees is indexed by object id");
@@ -1067,7 +1067,7 @@ void __CPROVER_contracts_link_is_fresh(
   __CPROVER_contracts_obj_set_ptr_t is_fresh_set)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(write_set != 0, "write_set not NULL");
 #endif
   if((is_fresh_set != 0))
@@ -1089,7 +1089,7 @@ void __CPROVER_contracts_link_allocated(
   __CPROVER_contracts_write_set_ptr_t write_set_to_link)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     write_set_postconditions != 0, "write_set_postconditions not NULL");
 #endif
@@ -1114,7 +1114,7 @@ void __CPROVER_contracts_link_deallocated(
   __CPROVER_contracts_write_set_ptr_t write_set_to_link)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     write_set_postconditions != 0, "write_set_postconditions not NULL");
 #endif
@@ -1168,7 +1168,7 @@ __CPROVER_HIDE:;
                         (write_set->assume_ensures_ctx == 1) |
                         (write_set->assert_ensures_ctx == 1)),
     "__CPROVER_is_fresh is used only in requires or ensures clauses");
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(
     __CPROVER_rw_ok(write_set, sizeof(__CPROVER_contracts_write_set_t)),
     "set readable");
@@ -1177,7 +1177,7 @@ __CPROVER_HIDE:;
 #endif
   if(write_set->assume_requires_ctx)
   {
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
     __CPROVER_assert(
       (write_set->assert_requires_ctx == 0) &
         (write_set->assume_ensures_ctx == 0) &
@@ -1219,7 +1219,7 @@ __CPROVER_HIDE:;
     // __CPROVER_memory_leak = record_may_leak ? ptr : __CPROVER_memory_leak;
 
     // record fresh object in the object set
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
     // manually inlined below
     __CPROVER_contracts_obj_set_add(write_set->linked_is_fresh, ptr);
 #else
@@ -1235,7 +1235,7 @@ __CPROVER_HIDE:;
   }
   else if(write_set->assume_ensures_ctx)
   {
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
     __CPROVER_assert(
       (write_set->assume_requires_ctx == 0) &
         (write_set->assert_requires_ctx == 0) &
@@ -1274,7 +1274,7 @@ __CPROVER_HIDE:;
     __CPROVER_memory_leak = record_may_leak ? ptr : __CPROVER_memory_leak;
 
     // record fresh object in the caller's write set
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
     __CPROVER_contracts_obj_set_add(write_set->linked_allocated, ptr);
 #else
     __CPROVER_size_t object_id = __CPROVER_POINTER_OBJECT(ptr);
@@ -1289,7 +1289,7 @@ __CPROVER_HIDE:;
   }
   else if(write_set->assert_requires_ctx | write_set->assert_ensures_ctx)
   {
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
     __CPROVER_assert(
       (write_set->assume_requires_ctx == 0) &
         (write_set->assume_ensures_ctx == 0),
@@ -1298,7 +1298,7 @@ __CPROVER_HIDE:;
     __CPROVER_contracts_obj_set_ptr_t seen = write_set->linked_is_fresh;
     void *ptr = *elem;
     // null pointers or already seen pointers are not fresh
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
     // manually inlined below
     if((ptr == 0) || (__CPROVER_contracts_obj_set_contains(seen, ptr)))
       return 0;
@@ -1312,7 +1312,7 @@ __CPROVER_HIDE:;
       return 0;
 #endif
       // record fresh object in the object set
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
     // manually inlined below
     __CPROVER_contracts_obj_set_add(seen, ptr);
 #else
@@ -1385,7 +1385,7 @@ void *__CPROVER_contracts_write_set_havoc_get_assignable_target(
   __CPROVER_size_t idx)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(write_set != 0, "write_set not NULL");
 #endif
 
@@ -1417,7 +1417,7 @@ void __CPROVER_contracts_write_set_havoc_slice(
   __CPROVER_size_t idx)
 {
 __CPROVER_HIDE:;
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   __CPROVER_assert(idx < set->contract_assigns.max_elems, "no OOB access");
 #endif
   __CPROVER_contracts_car_t car = set->contract_assigns.elems[idx];
@@ -1478,7 +1478,7 @@ __CPROVER_HIDE:;
     "__CPROVER_was_freed is used only in ensures clauses");
   __CPROVER_assert(
     (set->linked_deallocated != 0), "linked_deallocated is not null");
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
   // manually inlined below
   return __CPROVER_contracts_obj_set_contains_exact(
     set->linked_deallocated, ptr);
@@ -1504,7 +1504,7 @@ __CPROVER_HIDE:;
 
   if(set->assume_ensures_ctx)
   {
-#ifdef DFCC_DEBUG
+#ifdef __CPROVER_DFCC_DEBUG_LIB
     // manually inlined below
     __CPROVER_assert(
       __CPROVER_contracts_obj_set_contains_exact(&(set->contract_frees), ptr),

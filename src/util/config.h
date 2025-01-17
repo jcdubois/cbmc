@@ -72,7 +72,8 @@ class symbol_table_baset;
 #define OPT_CONFIG_LIBRARY                                                     \
   "(malloc-fail-assert)(malloc-fail-null)(malloc-may-fail)"                    \
   "(no-malloc-may-fail)"                                                       \
-  "(string-abstraction)"
+  "(string-abstraction)"                                                       \
+  "(dfcc-debug-lib)"
 
 #define HELP_CONFIG_LIBRARY                                                    \
   " {y--malloc-may-fail} \t allow malloc calls to return a null pointer\n"     \
@@ -80,7 +81,9 @@ class symbol_table_baset;
   " {y--malloc-fail-assert} \t "                                               \
   "set malloc failure mode to assert-then-assume\n"                            \
   " {y--malloc-fail-null} \t set malloc failure mode to return null\n"         \
-  " {y--string-abstraction} \t track C string lengths and zero-termination\n"
+  " {y--string-abstraction} \t track C string lengths and zero-termination\n"  \
+  " {y--dfcc-debug-lib} \t enable debug assertions in the cprover contracts "  \
+  "library\n"
 
 #define OPT_CONFIG_JAVA "(classpath)(cp)(main-class)"
 
@@ -281,6 +284,10 @@ public:
 
     bool string_abstraction;
     bool malloc_may_fail = true;
+
+    /// enable debug code in cprover_contracts library
+    bool dfcc_debug_lib = false;
+
 
     enum malloc_failure_modet
     {

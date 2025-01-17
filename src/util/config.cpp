@@ -1164,6 +1164,11 @@ bool configt::set(const cmdlinet &cmdline)
   else
     ansi_c.string_abstraction=false;
 
+  if(cmdline.isset("dfcc-debug-lib"))
+    ansi_c.dfcc_debug_lib = true;
+  else
+    ansi_c.dfcc_debug_lib = false;
+
   if(cmdline.isset("no-library"))
     ansi_c.lib=configt::ansi_ct::libt::LIB_NONE;
 
