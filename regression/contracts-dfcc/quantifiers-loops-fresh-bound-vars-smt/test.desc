@@ -1,4 +1,4 @@
-CORE dfcc-only smt-backend broken-cprover-smt-backend
+FUTURE dfcc-only smt-backend broken-cprover-smt-backend
 main.c
 --dfcc main --apply-loop-contracts --enforce-contract foo --malloc-may-fail --malloc-fail-null _ --z3 --slice-formula --no-standard-checks
 ^EXIT=0$
@@ -7,6 +7,12 @@ main.c
 --
 ^warning: ignoring
 --
+
+Marked as FUTURE because:
+- z3 >v4.12 and up can solve the problem with `--dfcc-simple-invalid-pointer-model`,
+ but the CI uses older versions;
+- bitwuzla >v0.6 can solve the problem but we don't run bitwuzla in CI.
+
 Tests support for quantifiers in loop contracts with the SMT backend.
 When quantified loop invariants are used, they are inserted three times
 in the transformed program (base case assertion, step case assumption,

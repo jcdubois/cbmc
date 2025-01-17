@@ -1165,7 +1165,7 @@ void __CPROVER_contracts_make_invalid_pointer(void **ptr)
 
 /// \brief Implementation of the `is_fresh` front-end predicate.
 ///
-/// The behaviour depends on the boolean flags carried by \p set
+/// The behaviour depends on the boolean flags carried by \p write_set
 /// which reflect the invocation context: checking vs. replacing a contract,
 /// in a requires or an ensures clause context.
 /// \param elem First argument of the `is_fresh` predicate
@@ -1232,6 +1232,13 @@ __CPROVER_HIDE:;
       __CPROVER_assume(size <= __CPROVER_max_malloc_size);
     }
 
+    // SOUNDNESS: allow predicate to fail
+    if(__VERIFIER_nondet___CPROVER_bool())
+    {
+      __CPROVER_contracts_make_invalid_pointer(elem);
+      return 0;
+    }
+
     void *ptr = __CPROVER_allocate(size, 0);
     *elem = ptr;
 
@@ -1245,7 +1252,6 @@ __CPROVER_HIDE:;
     // __CPROVER_bool record_may_leak = __VERIFIER_nondet___CPROVER_bool();
     // __CPROVER_memory_leak = record_may_leak ? ptr : __CPROVER_memory_leak;
 
-    // record fresh object in the object set
 #ifdef __CPROVER_DFCC_DEBUG_LIB
     // manually inlined below
     __CPROVER_contracts_obj_set_add(write_set->linked_is_fresh, ptr);
@@ -1286,6 +1292,13 @@ __CPROVER_HIDE:;
       __CPROVER_assume(size <= __CPROVER_max_malloc_size);
     }
 
+    // SOUNDNESS: allow predicate to fail
+    if(__VERIFIER_nondet___CPROVER_bool())
+    {
+      __CPROVER_contracts_make_invalid_pointer(elem);
+      return 0;
+    }
+
     void *ptr = __CPROVER_allocate(size, 0);
     *elem = ptr;
 
@@ -1300,7 +1313,6 @@ __CPROVER_HIDE:;
     __CPROVER_bool record_may_leak = __VERIFIER_nondet___CPROVER_bool();
     __CPROVER_memory_leak = record_may_leak ? ptr : __CPROVER_memory_leak;
 
-    // record fresh object in the caller's write set
 #ifdef __CPROVER_DFCC_DEBUG_LIB
     __CPROVER_contracts_obj_set_add(write_set->linked_allocated, ptr);
 #else
@@ -1338,7 +1350,7 @@ __CPROVER_HIDE:;
     if(seen->elems[object_id] != 0)
       return 0;
 #endif
-      // record fresh object in the object set
+
 #ifdef __CPROVER_DFCC_DEBUG_LIB
     // manually inlined below
     __CPROVER_contracts_obj_set_add(seen, ptr);
@@ -1360,6 +1372,23 @@ __CPROVER_HIDE:;
   }
 }
 
+/// \brief Implementation of the `pointer_in_range_dfcc` front-end predicate.
+///
+/// The behaviour depends on the boolean flags carried by \p write_set
+/// which reflect the invocation context: checking vs. replacing a contract,
+/// in a requires or an ensures clause context.
+/// \param lb Lower bound pointer
+/// \param ptr Target pointer of the predicate
+/// \param ub Upper bound pointer
+/// \param write_set Write set in which seen/allocated objects are recorded;
+///
+/// \details The behaviour is as follows:
+/// - When \p set->assume_requires_ctx or \p set->assume_ensures_ctx is `true`,
+/// the predicate checks that \p lb and \p ub are valid, into the same object,
+/// ordered, and checks that \p ptr is between \p lb and \p ub.
+/// - When \p set->assert_requires_ctx or \p set->assert_ensures_ctx is `true`,
+/// the predicate checks that \p lb and \p ub are valid, into the same object,
+/// ordered, and assigns \p ptr to some nondet offset between \p lb and \p ub.
 __CPROVER_bool __CPROVER_contracts_pointer_in_range_dfcc(
   void *lb,
   void **ptr,
@@ -1386,7 +1415,11 @@ __CPROVER_HIDE:;
   if(write_set->assume_requires_ctx | write_set->assume_ensures_ctx)
   {
     if(__VERIFIER_nondet___CPROVER_bool())
+    {
+      // SOUNDNESS: allow predicate to fail
+      __CPROVER_contracts_make_invalid_pointer(ptr);
       return 0;
+    }
 
     // add nondet offset
     __CPROVER_size_t offset = __VERIFIER_nondet_size();
