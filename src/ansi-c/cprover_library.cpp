@@ -48,6 +48,10 @@ static std::string get_cprover_library_text(
   if(config.ansi_c.dfcc_debug_lib)
     library_text << "#define " CPROVER_PREFIX "DFCC_DEBUG_LIB\n";
 
+  if(config.ansi_c.simple_invalid_pointer_model)
+    library_text << "#define " CPROVER_PREFIX
+                    "DFCC_SIMPLE_INVALID_POINTER_MODEL\n";
+
   // cprover_library.inc may not have been generated when running Doxygen, thus
   // make Doxygen skip this part
   /// \cond

@@ -121,6 +121,7 @@ void dfcc_instrument_loopt::operator()(
     function_id,
     write_set_populate_instrs,
     loop.addr_of_write_set_var,
+    dfcc_ptr_havoc_modet::NONDET,
     havoc_instrs,
     nof_targets);
   spec_functions.to_spec_assigns_instructions(

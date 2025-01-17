@@ -1136,6 +1136,33 @@ void *__CPROVER_contracts_malloc(
   __CPROVER_size_t,
   __CPROVER_contracts_write_set_ptr_t);
 
+/// \brief Makes the given pointer invalid.
+///
+/// Used to craft invalid pointers when pointer predicates return false
+/// in "assume" mode.
+/// We have two models for invalid pointers:
+/// - default: pointer is uninitialized (empty value set, nondet bit pattern).
+/// - simple: pointer is either null or pointing to a dead object of size zero.
+/// The simple model is activated by a CLI switch in goto-instrument.
+void __CPROVER_contracts_make_invalid_pointer(void **ptr)
+{
+#ifdef __CPROVER_DFCC_SIMPLE_INVALID_POINTER_MODEL
+  void *dummy = __CPROVER_allocate(0, 0);
+  __CPROVER_deallocated =
+    __VERIFIER_nondet___CPROVER_bool() ? dummy : __CPROVER_deallocated;
+  *ptr = __VERIFIER_nondet___CPROVER_bool() ? dummy : (void *)0;
+#else
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wuninitialized"
+  // We have to silence this warning to be able to generate and use an
+  // invalid pointer.
+  void *invalid;
+  *ptr = invalid;
+#  pragma GCC diagnostic pop
+#endif
+}
+
+
 /// \brief Implementation of the `is_fresh` front-end predicate.
 ///
 /// The behaviour depends on the boolean flags carried by \p set

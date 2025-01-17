@@ -588,6 +588,10 @@ track C string lengths and zero\-termination
 .TP
 \fB\-\-dfcc\-debug\-lib\fR
 enable debug assertions in the cprover contracts library
+.TP
+\fB\-\-dfcc\-simple\-invalid\-pointer\-model\fR
+use simplified invalid pointer model in the cprover contracts library
+(faster, unsound)
 .SS "Standard Checks"
 From version \fB6.0\fR onwards, \fBcbmc\fR, \fBgoto-analyzer\fR and some other tools
 apply some checks to the program by default (called the "standard checks"), with the
