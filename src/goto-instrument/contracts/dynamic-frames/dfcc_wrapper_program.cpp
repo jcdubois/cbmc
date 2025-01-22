@@ -27,6 +27,7 @@ Author: Remi Delmas, delmasrd@amazon.com
 #include "dfcc_instrument.h"
 #include "dfcc_library.h"
 #include "dfcc_lift_memory_predicates.h"
+#include "dfcc_pointer_equals.h"
 #include "dfcc_utils.h"
 
 /// Generate the contract write set
@@ -563,6 +564,8 @@ void dfcc_wrapper_programt::encode_requires_clauses()
         "Check requires clause of contract " + id2string(contract_symbol.name) +
         " for function " + id2string(wrapper_id));
     }
+    // // rewrite pointer equalities before goto conversion
+    // TODO rewrite_equal_exprt_to_pointer_equals(requires_lmbd);
     codet requires_statement(statement_type, {std::move(requires_lmbd)}, sl);
     converter.goto_convert(requires_statement, requires_program, language_mode);
   }
@@ -614,7 +617,8 @@ void dfcc_wrapper_programt::encode_ensures_clauses()
         "Check ensures clause of contract " + id2string(contract_symbol.name) +
         " for function " + id2string(wrapper_id));
     }
-
+    // // rewrite pointer equalities before goto conversion
+    // TODO rewrite_equal_exprt_to_pointer_equals(ensures);
     codet ensures_statement(statement_type, {std::move(ensures)}, sl);
     converter.goto_convert(ensures_statement, ensures_program, language_mode);
   }

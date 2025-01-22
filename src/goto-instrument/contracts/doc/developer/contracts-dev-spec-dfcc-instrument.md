@@ -174,6 +174,9 @@ Calls to `__CPROVER_obeys_contract` are rewritten as described in
 Calls to `__CPROVER_pointer_in_range_dfcc` are rewritten as described in
 @subpage contracts-dev-spec-pointer-in-range
 
+Calls to `__CPROVER_pointer_equals` are rewritten as described in
+@subpage contracts-dev-spec-pointer-equals
+
 For all other function or function pointer calls, we proceed as follows.
 
 If the function call has an LHS (i.e. its result is assigned to a return value

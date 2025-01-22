@@ -9,6 +9,49 @@ let users describe the shape of the memory accessed through pointers in
 _requires clauses_ and _ensures clauses_. Attempting to call these predicates
 outside of a requires or ensures clause context will result in a verification
 error.
+
+## The __CPROVER_pointer_equals predicate
+### Syntax
+
+```c
+bool __CPROVER_pointer_equals(void *p, void *q);
+```
+This predicate can only be used in ensures and requires clauses and checks for
+pointer validity and equality.
+
+#### Parameters
+
+`__CPROVER_pointer_equals` takes two pointers as arguments.
+
+#### Return Value
+
+It returns a `bool` value:
+- `true` iff pointers are both null or valid and are equal,
+- `false` otherwise.
+
+### Semantics
+
+#### Enforcement
+
+When checking a contract using `--enforce-contract foo`:
+- used in a _requires_ clause, the predicate will check that `ptr2` is always
+  either null or valid, and it will make `ptr1` equal to `ptr2`.
+  This results in a state resulting in a state where both pointers are either
+  null or valid and equal;
+- used in an _ensures_ clause it will check that memory both pointers are always
+  either null or valid and equal.
+
+#### Replacement
+
+When checking a contract using `--replace-call-with-contract foo`, we get the
+dual behaviour:
+- used in a _requires_ clause it will check that memory both pointers are always
+  either null or valid and equal,
+- used in an _ensures_ clause, the predicate will check that `ptr2` is always
+  either null or valid, and it will make `ptr1` equal to `ptr2`.
+  This results in a state resulting in a state where both pointers are either
+  null or valid and equal.
+
 ## The __CPROVER_is_fresh predicate
 ### Syntax
 

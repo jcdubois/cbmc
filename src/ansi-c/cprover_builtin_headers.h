@@ -44,6 +44,7 @@ void __CPROVER_fence(const char *kind, ...);
 // contract-related functions
 __CPROVER_bool __CPROVER_is_freeable(const void *mem);
 __CPROVER_bool __CPROVER_was_freed(const void *mem);
+__CPROVER_bool __CPROVER_pointer_equals(void *p, void *q);
 __CPROVER_bool __CPROVER_is_fresh(const void *mem, __CPROVER_size_t size);
 __CPROVER_bool __CPROVER_obeys_contract(void (*)(void), void (*)(void));
 // same as pointer_in_range with experimental support in contracts

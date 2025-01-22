@@ -706,6 +706,13 @@ do not allow malloc calls to fail by default
 \fB\-\-string\-abstraction\fR
 track C string lengths and zero\-termination
 .TP
+\fB\-\-dfcc\-debug\-lib\fR
+enable debug assertions in the cprover contracts library
+.TP
+\fB\-\-dfcc\-simple\-invalid\-pointer\-model\fR
+use simplified invalid pointer model in the cprover contracts library
+(faster, unsound)
+.TP
 \fB\-\-model\-argc\-argv\fR \fIn\fR
 Create up to \fIn\fR non-deterministic C strings as entries to \fIargv\fR and
 set \fIargc\fR accordingly. In absence of such modelling, \fIargv\fR is left

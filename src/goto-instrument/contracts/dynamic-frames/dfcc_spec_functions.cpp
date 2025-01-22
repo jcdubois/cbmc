@@ -103,6 +103,7 @@ void dfcc_spec_functionst::generate_havoc_function(
     havoc_function_id,
     original_program,
     write_set_symbol.symbol_expr(),
+    dfcc_ptr_havoc_modet::INVALID,
     havoc_program,
     nof_targets);
 
@@ -144,6 +145,7 @@ void dfcc_spec_functionst::generate_havoc_instructions(
   const irep_idt &function_id,
   const goto_programt &original_program,
   const exprt &write_set_to_havoc,
+  dfcc_ptr_havoc_modet ptr_havoc_mode,
   goto_programt &havoc_program,
   std::size_t &nof_targets)
 {
@@ -191,8 +193,9 @@ void dfcc_spec_functionst::generate_havoc_instructions(
         // DECL __havoc_target;
         // CALL __havoc_target = havoc_hook(set, next_idx);
         // IF !__havoc_target GOTO label;
-        // ASSIGN *__havoc_target = nondet(target_type);
-        // label: DEAD __havoc_target;
+        // .... add code for scalar or pointer targets ...
+        // label:
+        //   DEAD __havoc_target;
         // ```
         // declare a local var to store targets havoced via nondet assignment
         auto &target_type = get_target_type(ins_it->call_arguments().at(0));
@@ -213,13 +216,42 @@ void dfcc_spec_functionst::generate_havoc_instructions(
           havoc_program.add(goto_programt::make_incomplete_goto(
             dfcc_utilst::make_null_check_expr(target_expr), location));
 
-        // create nondet assignment to the target
-        side_effect_expr_nondett nondet(target_type, location);
-        havoc_program.add(goto_programt::make_assignment(
-          dereference_exprt{typecast_exprt::conditional_cast(
-            target_expr, pointer_type(target_type))},
-          nondet,
-          location));
+        if(
+          ptr_havoc_mode == dfcc_ptr_havoc_modet::INVALID &&
+          target_type.id() == ID_pointer)
+        {
+          // ```
+          // DECL *__invalid_ptr;
+          // ASSIGN *__havoc_target = __invalid_ptr;
+          // DEAD __invalid_ptr;
+          // ```
+          const auto invalid_ptr_expr = dfcc_utilst::create_symbol(
+            goto_model.symbol_table,
+            target_type,
+            function_id,
+            "__invalid_ptr",
+            location);
+
+          havoc_program.add(goto_programt::make_assignment(
+            dereference_exprt{typecast_exprt::conditional_cast(
+              target_expr, pointer_type(target_type))},
+            invalid_ptr_expr,
+            location));
+          havoc_program.add(
+            goto_programt::make_dead(invalid_ptr_expr, location));
+        }
+        else
+        {
+          // ```
+          // ASSIGN *__havoc_target = nondet(target_type);
+          // ```
+          side_effect_expr_nondett nondet(target_type, location);
+          havoc_program.add(goto_programt::make_assignment(
+            dereference_exprt{typecast_exprt::conditional_cast(
+              target_expr, pointer_type(target_type))},
+            nondet,
+            location));
+        }
         auto label =
           havoc_program.add(goto_programt::make_dead(target_expr, location));
         goto_instruction->complete_goto(label);

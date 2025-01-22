@@ -32,6 +32,19 @@ class message_handlert;
 class symbolt;
 class conditional_target_group_exprt;
 
+/// \brief Represents the different ways to havoc pointers.
+///
+/// Remark:
+/// - Function contracts use invalid
+/// - Loop contracts use nondet
+enum class dfcc_ptr_havoc_modet
+{
+  /// havocs the pointer to an invalid pointer
+  INVALID,
+  /// havocs the pointer to an nondet pointer
+  NONDET
+};
+
 /// This class rewrites GOTO functions that use the built-ins:
 /// - `__CPROVER_assignable`,
 /// - `__CPROVER_object_whole`,
@@ -48,6 +61,9 @@ public:
     message_handlert &message_handler,
     dfcc_libraryt &library);
 
+  /// Generates the havoc function for a function contract.
+  /// Pointer-typed targets are turned into invalid pointers by the havoc.
+  ///
   /// From a function:
   ///
   /// ```
@@ -62,10 +78,9 @@ public:
   ///
   /// Which havocs the targets specified by `function_id`, passed
   ///
-  /// \param function_id function to generate instructions from
-  /// \param havoc_function_id write set variable to havoc
-  /// \param nof_targets maximum number of targets to havoc
-  ///
+  /// \param[in] function_id function to generate instructions from
+  /// \param[in] havoc_function_id write set variable to havoc
+  /// \param[out] nof_targets maximum number of targets to havoc
   void generate_havoc_function(
     const irep_idt &function_id,
     const irep_idt &havoc_function_id,
@@ -89,13 +104,14 @@ public:
   /// \param[in] function_id function id to use for prefixing fresh variables
   /// \param[in] original_program program from which to derive the havoc program
   /// \param[in] write_set_to_havoc write set symbol to havoc
+  /// \param[in] ptr_havoc_mode havocing mode for pointers
   /// \param[out] havoc_program destination program for havoc instructions
   /// \param[out] nof_targets max number of havoc targets discovered
-  ///
   void generate_havoc_instructions(
     const irep_idt &function_id,
     const goto_programt &original_program,
     const exprt &write_set_to_havoc,
+    dfcc_ptr_havoc_modet ptr_havoc_mode,
     goto_programt &havoc_program,
     std::size_t &nof_targets);
 
