@@ -156,3 +156,11 @@ bool dfcc_is_cprover_static_symbol(const irep_idt &id)
          // going_to variables converted from goto statements
          has_prefix(id2string(id), CPROVER_PREFIX "going_to");
 }
+
+bool dfcc_is_cprover_pointer_predicate(const irep_idt &id)
+{
+  return id == CPROVER_PREFIX "pointer_equals" ||
+         id == CPROVER_PREFIX "is_fresh" ||
+         id == CPROVER_PREFIX "pointer_in_range_dfcc" ||
+         id == CPROVER_PREFIX "obeys_contract";
+}

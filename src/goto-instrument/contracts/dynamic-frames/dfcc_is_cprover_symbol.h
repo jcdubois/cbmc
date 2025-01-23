@@ -24,4 +24,7 @@ bool dfcc_is_cprover_function_symbol(const irep_idt &id);
 /// auto-generated object following a pointer dereference.
 bool dfcc_is_cprover_static_symbol(const irep_idt &id);
 
+/// Returns `true` iff the symbol is one of the CPROVER pointer predicates
+bool dfcc_is_cprover_pointer_predicate(const irep_idt &id);
+
 #endif

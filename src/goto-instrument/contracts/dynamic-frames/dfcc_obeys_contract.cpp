@@ -12,6 +12,7 @@ Date: August 2022
 #include <util/cprover_prefix.h>
 #include <util/pointer_expr.h>
 #include <util/prefix.h>
+#include <util/suffix.h>
 #include <util/symbol.h>
 
 #include <langapi/language_util.h>
@@ -86,6 +87,12 @@ void dfcc_obeys_contractt::rewrite_calls(
           to_symbol_expr(target->call_function())
             .set_identifier(
               library.dfcc_fun_symbol[dfcc_funt::OBEYS_CONTRACT].name);
+
+          // pass the may_fail flag
+          if(function.source_location().get_bool("no_fail"))
+            target->call_arguments().push_back(false_exprt());
+          else
+            target->call_arguments().push_back(true_exprt());
 
           // pass the write_set
           target->call_arguments().push_back(cfg_info.get_write_set(target));

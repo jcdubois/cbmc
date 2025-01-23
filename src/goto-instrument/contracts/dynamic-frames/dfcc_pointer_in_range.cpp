@@ -11,8 +11,10 @@ Date: August 2022
 
 #include <util/cprover_prefix.h>
 #include <util/pointer_expr.h>
+#include <util/prefix.h>
 #include <util/replace_expr.h>
 #include <util/std_code.h>
+#include <util/suffix.h>
 #include <util/symbol.h>
 
 #include "dfcc_cfg_info.h"
@@ -53,7 +55,8 @@ void dfcc_pointer_in_ranget::rewrite_calls(
       {
         const irep_idt &fun_name = to_symbol_expr(function).get_identifier();
 
-        if(fun_name == CPROVER_PREFIX "pointer_in_range_dfcc")
+        if(has_prefix(
+             id2string(fun_name), CPROVER_PREFIX "pointer_in_range_dfcc"))
         {
           // add address on second operand
           target->call_arguments()[1] =
@@ -63,6 +66,13 @@ void dfcc_pointer_in_ranget::rewrite_calls(
           to_symbol_expr(target->call_function())
             .set_identifier(
               library.dfcc_fun_symbol[dfcc_funt::POINTER_IN_RANGE_DFCC].name);
+
+          // pass the may_fail flag
+          // pass the may_fail flag
+          if(function.source_location().get_bool("no_fail"))
+            target->call_arguments().push_back(false_exprt());
+          else
+            target->call_arguments().push_back(true_exprt());
 
           // pass the write_set
           target->call_arguments().push_back(cfg_info.get_write_set(target));
