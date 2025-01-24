@@ -11,6 +11,8 @@ Date: August 2022
 
 #include <util/cprover_prefix.h>
 #include <util/pointer_expr.h>
+#include <util/prefix.h>
+#include <util/suffix.h>
 #include <util/symbol.h>
 
 #include "dfcc_cfg_info.h"
@@ -50,8 +52,7 @@ void dfcc_is_fresht::rewrite_calls(
       if(function.id() == ID_symbol)
       {
         const irep_idt &fun_name = to_symbol_expr(function).get_identifier();
-
-        if(fun_name == CPROVER_PREFIX "is_fresh")
+        if(has_prefix(id2string(fun_name), CPROVER_PREFIX "is_fresh"))
         {
           // add address on first operand
           target->call_arguments()[0] =
@@ -60,6 +61,12 @@ void dfcc_is_fresht::rewrite_calls(
           // fix the function name.
           to_symbol_expr(target->call_function())
             .set_identifier(library.dfcc_fun_symbol[dfcc_funt::IS_FRESH].name);
+
+          // pass the may_fail flag
+          if(function.source_location().get_bool("no_fail"))
+            target->call_arguments().push_back(false_exprt());
+          else
+            target->call_arguments().push_back(true_exprt());
 
           // pass the write_set
           target->call_arguments().push_back(cfg_info.get_write_set(target));

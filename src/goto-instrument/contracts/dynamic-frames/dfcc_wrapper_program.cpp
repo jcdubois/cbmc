@@ -25,6 +25,7 @@ Author: Remi Delmas, delmasrd@amazon.com
 
 #include "dfcc_contract_functions.h"
 #include "dfcc_instrument.h"
+#include "dfcc_is_cprover_symbol.h"
 #include "dfcc_library.h"
 #include "dfcc_lift_memory_predicates.h"
 #include "dfcc_pointer_equals.h"
@@ -535,6 +536,103 @@ void dfcc_wrapper_programt::encode_is_fresh_set()
   postamble.add(goto_programt::make_dead(is_fresh_set, wrapper_sl));
 }
 
+/// Recursively traverses expression, adding "no_fail" attributes to pointer
+/// predicates that we know cannot fail when invoked in an assume context:
+/// Starting from the root with "no_fail" true, we recurse over the boolean
+/// structure, setting the "no_fail" false for all but the last operand
+/// disjunctive operators like `||` and `==>`, and distributing the current
+/// "no_fail" status over disjunctions.
+///
+/// For instance:
+/// ```
+/// (len > 0):no_fail=false ==> is_fresh(p, len):no_fail=true
+/// ```
+///
+/// ```
+/// is_fresh(p, len):no_fail=true && is_fresh(q, len):no_fail=true
+/// ```
+///
+/// ```
+/// is_fresh(p, len):no_fail=false ||
+/// is_fresh(q, len):no_fail=false ||
+/// is_fresh(r, len):no_fail=true
+/// ```
+///
+/// ```
+/// is_fresh(p, len):no_fail=false ||
+/// (
+///    is_fresh(q, len):no_fail=true &&
+///    (
+///      (len>0):no_fail=true ==> is_fresh(r, len):no_fail=true
+///    )
+/// )
+/// ```
+/// \param expr The expression to traverse
+/// \param no_fail The current no_fail value based on logical context
+void disable_may_fail_rec(exprt &expr, bool no_fail)
+{
+  if(expr.id() == ID_side_effect)
+  {
+    // Base case: pointer predicate function call
+    side_effect_exprt &side_effect = to_side_effect_expr(expr);
+    if(side_effect.get_statement() == ID_function_call)
+    {
+      exprt &function = side_effect.operands()[0];
+      if(function.id() == ID_symbol)
+      {
+        const irep_idt &func_name = to_symbol_expr(function).get_identifier();
+        if(dfcc_is_cprover_pointer_predicate(func_name))
+        {
+          function.add_source_location().set("no_fail", no_fail);
+        }
+      }
+    }
+    return;
+  }
+  else if(expr.id() == ID_and)
+  {
+    // Shortcutting AND: propagate current no_fail value to all operands
+    for(auto &op : expr.operands())
+    {
+      disable_may_fail_rec(op, no_fail);
+    }
+  }
+  else if(expr.id() == ID_or)
+  {
+    // Shortcutting OR: set no_fail=false for all but last operand
+    auto &ops = expr.operands();
+    // Process all operands except the last one with no_fail=false
+    for(std::size_t i = 0; i < ops.size() - 1; ++i)
+    {
+      disable_may_fail_rec(ops[i], false);
+    }
+    // Process last operand with current no_fail value
+    if(!ops.empty())
+    {
+      disable_may_fail_rec(ops.back(), no_fail);
+    }
+  }
+  else if(expr.id() == ID_implies)
+  {
+    // Shortcutting implies: false for antecedent, current value for consequent
+    INVARIANT(
+      expr.operands().size() == 2,
+      "Implication expression must have two operands");
+    disable_may_fail_rec(expr.operands()[0], false);
+    disable_may_fail_rec(expr.operands()[1], no_fail);
+  }
+  else
+  {
+    // bail on other types of expressions
+    return;
+  }
+}
+
+void disable_may_fail(exprt &expr)
+{
+  disable_may_fail_rec(expr, true);
+}
+
 void dfcc_wrapper_programt::encode_requires_clauses()
 {
   // we use this empty requires write set to check for the absence of side
@@ -556,6 +654,9 @@ void dfcc_wrapper_programt::encode_requires_clauses()
   {
     exprt requires_lmbd =
       to_lambda_expr(r).application(contract_lambda_parameters);
+
+    // add "no_fail" suffix to predicates required as units
+    disable_may_fail(requires_lmbd);
     source_locationt sl(r.source_location());
     if(statement_type == ID_assert)
     {
@@ -604,6 +705,9 @@ void dfcc_wrapper_programt::encode_ensures_clauses()
     exprt ensures = to_lambda_expr(e)
                       .application(contract_lambda_parameters)
                       .with_source_location(e);
+
+    // add "no_fail" suffix to unit pointer predicates
+    disable_may_fail(ensures);
 
     // this also rewrites ID_old expressions to fresh variables
     generate_history_variables_initialization(

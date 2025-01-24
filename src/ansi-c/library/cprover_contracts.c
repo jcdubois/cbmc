@@ -1166,6 +1166,7 @@ void __CPROVER_contracts_make_invalid_pointer(void **ptr)
 ///
 /// \param ptr1 First argument of the `pointer_equals` predicate
 /// \param ptr2 Second argument of the `pointer_equals` predicate
+/// \param may_fail Allow predicate to fail in assume mode
 /// \param write_set Write set which conveys the invocation context
 ///   (requires/ensures clause, assert/assume context);
 ///
@@ -1179,6 +1180,7 @@ void __CPROVER_contracts_make_invalid_pointer(void **ptr)
 __CPROVER_bool __CPROVER_contracts_pointer_equals(
   void **ptr1,
   void *ptr2,
+  __CPROVER_bool may_fail,
   __CPROVER_contracts_write_set_ptr_t write_set)
 {
 __CPROVER_HIDE:;
@@ -1195,7 +1197,8 @@ __CPROVER_HIDE:;
 #endif
   if(write_set->assume_requires_ctx | write_set->assume_ensures_ctx)
   {
-    if(__VERIFIER_nondet___CPROVER_bool())
+    // SOUNDNESS: allow predicate to fail
+    if(may_fail && __VERIFIER_nondet___CPROVER_bool())
     {
       __CPROVER_contracts_make_invalid_pointer(ptr1);
       return 0;
@@ -1224,8 +1227,9 @@ __CPROVER_HIDE:;
 /// The behaviour depends on the boolean flags carried by \p write_set
 /// which reflect the invocation context: checking vs. replacing a contract,
 /// in a requires or an ensures clause context.
-/// \param elem First argument of the `is_fresh` predicate
-/// \param size Second argument of the `is_fresh` predicate
+/// \param elem Pointer to the target pointer of the check
+/// \param size Size to check for
+/// \param may_fail Allow predicate to fail in assume mode
 /// \param write_set Write set in which seen/allocated objects are recorded;
 ///
 /// \details The behaviour is as follows:
@@ -1242,6 +1246,7 @@ __CPROVER_HIDE:;
 __CPROVER_bool __CPROVER_contracts_is_fresh(
   void **elem,
   __CPROVER_size_t size,
+  __CPROVER_bool may_fail,
   __CPROVER_contracts_write_set_ptr_t write_set)
 {
 __CPROVER_HIDE:;
@@ -1289,7 +1294,7 @@ __CPROVER_HIDE:;
     }
 
     // SOUNDNESS: allow predicate to fail
-    if(__VERIFIER_nondet___CPROVER_bool())
+    if(may_fail && __VERIFIER_nondet___CPROVER_bool())
     {
       __CPROVER_contracts_make_invalid_pointer(elem);
       return 0;
@@ -1349,7 +1354,7 @@ __CPROVER_HIDE:;
     }
 
     // SOUNDNESS: allow predicate to fail
-    if(__VERIFIER_nondet___CPROVER_bool())
+    if(may_fail && __VERIFIER_nondet___CPROVER_bool())
     {
       __CPROVER_contracts_make_invalid_pointer(elem);
       return 0;
@@ -1436,6 +1441,7 @@ __CPROVER_HIDE:;
 /// \param lb Lower bound pointer
 /// \param ptr Target pointer of the predicate
 /// \param ub Upper bound pointer
+/// \param may_fail Allow predicate to fail in assume mode
 /// \param write_set Write set in which seen/allocated objects are recorded;
 ///
 /// \details The behaviour is as follows:
@@ -1449,6 +1455,7 @@ __CPROVER_bool __CPROVER_contracts_pointer_in_range_dfcc(
   void *lb,
   void **ptr,
   void *ub,
+  __CPROVER_bool may_fail,
   __CPROVER_contracts_write_set_ptr_t write_set)
 {
 __CPROVER_HIDE:;
@@ -1470,9 +1477,9 @@ __CPROVER_HIDE:;
     lb_offset <= ub_offset, "lb and ub pointers must be ordered");
   if(write_set->assume_requires_ctx | write_set->assume_ensures_ctx)
   {
-    if(__VERIFIER_nondet___CPROVER_bool())
+    // SOUNDNESS: allow predicate to fail
+    if(may_fail && __VERIFIER_nondet___CPROVER_bool())
     {
-      // SOUNDNESS: allow predicate to fail
       __CPROVER_contracts_make_invalid_pointer(ptr);
       return 0;
     }
@@ -1647,6 +1654,7 @@ __CPROVER_HIDE:;
 __CPROVER_bool __CPROVER_contracts_obeys_contract(
   void (**function_pointer)(void),
   void (*contract)(void),
+  __CPROVER_bool may_fail,
   __CPROVER_contracts_write_set_ptr_t set)
 {
 __CPROVER_HIDE:;
@@ -1657,8 +1665,8 @@ __CPROVER_HIDE:;
     "__CPROVER_obeys_contract is used only in requires or ensures clauses");
   if((set->assume_requires_ctx == 1) | (set->assume_ensures_ctx == 1))
   {
-    // decide if predicate must hold
-    if(__VERIFIER_nondet___CPROVER_bool())
+    // SOUDNESS: allow predicate to fail
+    if(may_fail && __VERIFIER_nondet___CPROVER_bool())
       return 0;
 
     // must hold, assign the function pointer to the contract function
