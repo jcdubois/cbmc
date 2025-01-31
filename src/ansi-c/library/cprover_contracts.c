@@ -76,6 +76,10 @@ typedef struct
   /// by __CPROVER_contracts_is_fresh. Used to check separation constraints
   /// in __CPROVER_contracts_is_fresh.
   void *fresh_ptr;
+  /// \brief Nondet variable ranging over the set of locations storing
+  /// pointers on which predicates were assumed/asserted. Used to ensure
+  /// that at most one predicate is assumed per pointer.
+  void **ptr_pred;
 } __CPROVER_contracts_ptr_pred_ctx_t;
 
 /// \brief Type of pointers to \ref __CPROVER_contracts_ptr_pred_ctx_t.
@@ -416,6 +420,7 @@ void __CPROVER_contracts_ptr_pred_ctx_init(
 {
 __CPROVER_HIDE:;
   set->fresh_ptr = (void *)0;
+  set->ptr_pred = (void **)0;
 }
 
 /// \brief Resets the nondet tracker for pointer predicates in \p set.
@@ -425,7 +430,7 @@ void __CPROVER_contracts_ptr_pred_ctx_reset(
   __CPROVER_contracts_ptr_pred_ctx_ptr_t set)
 {
 __CPROVER_HIDE:;
-  (void)set;
+  set->ptr_pred = (void **)0;
 }
 
 /// \brief Initialises a \ref __CPROVER_contracts_write_set_t object.
@@ -1236,6 +1241,14 @@ __CPROVER_HIDE:;
     __CPROVER_assert(
       (ptr2 == 0) || __CPROVER_r_ok(ptr2, 0),
       "__CPROVER_pointer_equals is only called with valid pointers");
+    __CPROVER_assert(
+      write_set->linked_ptr_pred_ctx->ptr_pred != ptr1,
+      "__CPROVER_pointer_equals does not conflict with other pointer "
+      "predicate in assume context");
+    write_set->linked_ptr_pred_ctx->ptr_pred =
+      __VERIFIER_nondet___CPROVER_bool()
+        ? ptr1
+        : write_set->linked_ptr_pred_ctx->ptr_pred;
     *ptr1 = ptr2;
     return 1;
   }
@@ -1252,6 +1265,14 @@ __CPROVER_HIDE:;
     {
       return 0;
     }
+    __CPROVER_assert(
+      write_set->linked_ptr_pred_ctx->ptr_pred != ptr1,
+      "__CPROVER_pointer_equals does not conflict with other pointer "
+      "predicate in assert context");
+    write_set->linked_ptr_pred_ctx->ptr_pred =
+      __VERIFIER_nondet___CPROVER_bool()
+        ? ptr1
+        : write_set->linked_ptr_pred_ctx->ptr_pred;
     return 1;
   }
 }
@@ -1316,6 +1337,18 @@ __CPROVER_HIDE:;
     }
     void *ptr = __CPROVER_allocate(size, 0);
     *elem = ptr;
+    __CPROVER_assert(
+      write_set->linked_ptr_pred_ctx->ptr_pred != elem,
+      "__CPROVER_is_fresh does not conflict with other pointer predicate in "
+      "assume context");
+    write_set->linked_ptr_pred_ctx->ptr_pred =
+      __VERIFIER_nondet___CPROVER_bool()
+        ? elem
+        : write_set->linked_ptr_pred_ctx->ptr_pred;
+    write_set->linked_ptr_pred_ctx->fresh_ptr =
+      __VERIFIER_nondet___CPROVER_bool()
+        ? ptr
+        : write_set->linked_ptr_pred_ctx->fresh_ptr;
 
     // record the object size for non-determistic bounds checking
     __CPROVER_bool record_malloc = __VERIFIER_nondet___CPROVER_bool();
@@ -1362,6 +1395,14 @@ __CPROVER_HIDE:;
 
     void *ptr = __CPROVER_allocate(size, 0);
     *elem = ptr;
+    __CPROVER_assert(
+      write_set->linked_ptr_pred_ctx->ptr_pred != elem,
+      "__CPROVER_is_fresh does not conflict with other pointer predicate in "
+      "assume context");
+    write_set->linked_ptr_pred_ctx->ptr_pred =
+      __VERIFIER_nondet___CPROVER_bool()
+        ? elem
+        : write_set->linked_ptr_pred_ctx->ptr_pred;
     write_set->linked_ptr_pred_ctx->fresh_ptr =
       __VERIFIER_nondet___CPROVER_bool()
         ? ptr
@@ -1405,6 +1446,14 @@ __CPROVER_HIDE:;
       !__CPROVER_same_object(write_set->linked_ptr_pred_ctx->fresh_ptr, ptr) &&
       __CPROVER_r_ok(ptr, size))
     {
+      __CPROVER_assert(
+        write_set->linked_ptr_pred_ctx->ptr_pred != elem,
+        "__CPROVER_is_fresh does not conflict with other pointer predicate in "
+        "assert context");
+      write_set->linked_ptr_pred_ctx->ptr_pred =
+        __VERIFIER_nondet___CPROVER_bool()
+          ? elem
+          : write_set->linked_ptr_pred_ctx->ptr_pred;
       write_set->linked_ptr_pred_ctx->fresh_ptr =
         __VERIFIER_nondet___CPROVER_bool()
           ? ptr
@@ -1480,6 +1529,14 @@ __CPROVER_HIDE:;
     __CPROVER_size_t max_offset = ub_offset - lb_offset;
     __CPROVER_assume(offset <= max_offset);
     *ptr = (char *)lb + offset;
+    __CPROVER_assert(
+      write_set->linked_ptr_pred_ctx->ptr_pred != ptr,
+      "__CPROVER_pointer_in_range_dfcc does not conflict with other pointer "
+      "predicate in assume context");
+    write_set->linked_ptr_pred_ctx->ptr_pred =
+      __VERIFIER_nondet___CPROVER_bool()
+        ? ptr
+        : write_set->linked_ptr_pred_ctx->ptr_pred;
     return 1;
   }
   else /* write_set->assert_requires_ctx | write_set->assert_ensures_ctx */
@@ -1489,6 +1546,14 @@ __CPROVER_HIDE:;
       __CPROVER_same_object(lb, *ptr) && lb_offset <= offset &&
       offset <= ub_offset)
     {
+      __CPROVER_assert(
+        write_set->linked_ptr_pred_ctx->ptr_pred != ptr,
+        "__CPROVER_pointer_in_range_dfcc does not conflict with other "
+        "predicate in assert context");
+      write_set->linked_ptr_pred_ctx->ptr_pred =
+        __VERIFIER_nondet___CPROVER_bool()
+          ? ptr
+          : write_set->linked_ptr_pred_ctx->ptr_pred;
       return 1;
     }
     else
@@ -1665,6 +1730,13 @@ __CPROVER_HIDE:;
     // SOUDNESS: allow predicate to fail
     if(may_fail && __VERIFIER_nondet___CPROVER_bool())
       return 0;
+    __CPROVER_assert(
+      set->linked_ptr_pred_ctx->ptr_pred != (void **)function_pointer,
+      "__CPROVER_obeys_contract does not conflict with other pointer "
+      "predicate in assume context");
+    set->linked_ptr_pred_ctx->ptr_pred = __VERIFIER_nondet___CPROVER_bool()
+                                           ? (void **)function_pointer
+                                           : set->linked_ptr_pred_ctx->ptr_pred;
     // must hold, assign the function pointer to the contract function
     *function_pointer = contract;
     return 1;
@@ -1674,6 +1746,13 @@ __CPROVER_HIDE:;
     // in assumption contexts, the pointer gets checked for equality
     if(*function_pointer == contract)
     {
+      __CPROVER_assert(
+        set->linked_ptr_pred_ctx->ptr_pred != (void **)function_pointer,
+        "__CPROVER_obeys_contract does not conflict with other pointer "
+        "predicate in assume context");
+      set->linked_ptr_pred_ctx->ptr_pred =
+        __VERIFIER_nondet___CPROVER_bool() ? (void **)function_pointer
+                                           : set->linked_ptr_pred_ctx->ptr_pred;
       return 1;
     }
     return 0;
